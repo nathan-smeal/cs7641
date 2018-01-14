@@ -39,14 +39,14 @@ Building from existing checkers games by experts helps with one case. Building t
 
 Learning algorithms acquire only some approximation of the ideal final target function. Because of this the process of learning the target function is often called *function approximation*.
 
-*nonoperational* versus *operational* definitions of V depend on the computable efficiency of the function. Something is considered *nonoperational* if it cannot be efficiently computed in a reasonable time. An *operational* definition will include approximations to reduce the computing time.
+*nonoperational* versus *operational* definitions of learning algorithm **V** depend on the computable efficiency of the function. Something is considered *nonoperational* if it cannot be efficiently computed in a reasonable time. An *operational* definition will include approximations to reduce the computing time.
 
 #### 1.23 Choosing a Representation for the Target Function
 
 Representations of the state of the system can be extremely accurate or summarized for efficiency based on the learning algorithm V.
 
 Example 1:
-A full board state of all pieces and their current status as endangered, neutral, attacking would be extremely memory intensive and computationally expensive to get the status values.
+A full board state of all pieces and their current status as endangered, safe, neutral, attacking would be extremely memory intensive and computationally expensive to get the status values.
 
 Example 2:
 A linear combination of the following board features computed once:
@@ -71,9 +71,19 @@ Adjusting the weights of the best situation based on a best fit for the observed
 
 #### 1.2.5 The Final Design
 
-Four major components for the design:
+Many machine learning systems can generalized to four generic modules: performance system, critic, generalizer, and experiment generator.
 
-1.
-1.
-1.
-1.
+1. **Performance System** (PS) solves the given performance task using the learning function V. It takes a current game state and produces a new history game state.
+1. **Critic** takes the PS output of a proposed game state as input and produces multiple output of training examples of the target function. It evaluates using the Vtrain() function.
+1. **Generalizer** takes the multiple Vtrain() examples and uses a weighted method to evaluate for future best outcomes.
+1. **Experiment Generator** takes as input the current learned function and outputs a new game state. A sophisticated generator would produce more than one state to explore a larger space. This one is simplistic with one state.
+
+This problem could have been solved with numerous other methods. This is only one method among many to be discussed later.
+
+### 1.3 Perspectives and Issues in Machine Learning
+
+Machine learning involves searching a very large space of possible solutions to a problem and determining the one that bests fits the observed data along with any prior knowledge held by the learner. In the formal analysis, understanding the prior statement as related to the size of the solution space to be searched, the size of the available training examples, and the confidence we have in the general case against our training data will all be helpful to understanding limitations and pitfalls to our final solutions.
+
+Some open questions:
+1. 
+
