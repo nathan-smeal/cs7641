@@ -85,5 +85,17 @@ This problem could have been solved with numerous other methods. This is only on
 Machine learning involves searching a very large space of possible solutions to a problem and determining the one that bests fits the observed data along with any prior knowledge held by the learner. In the formal analysis, understanding the prior statement as related to the size of the solution space to be searched, the size of the available training examples, and the confidence we have in the general case against our training data will all be helpful to understanding limitations and pitfalls to our final solutions.
 
 Some open questions:
-1. 
+1. What algorithms exist for learning general target functions from specific training examples? In what settings will particular algorithms converge to the desired function, given sufficient training data? Which algorithms perform best for which types of problems and representations?
+1. How much training data is sufficient? What general bounds can be found to relate the confidence in learned hypotheses to the amount of training experience and the character of the learner's hypothesis space?
+1. When and how can prior knowledge held by the learner guide the process of generalizing from examples? Can prior knowledge be helpful even when it is only approximately correct?
+1. What is the best strategy for choosing a useful next training experience, and how does the choice of this strategy alter the complexity of the learning problem?
+1. What is the best way to reduce the learning task to one or more function approximation problems? Put another way, what specific functions should the system attempt to learn? Can this process itself be automated?
+1. How can the learner automatically alter its representation to improve its ability to represent and learn the target function?
+
+### 1.4 How to Read this Book
+
+This book contains an introduction to the primary algorithms and approaches to
+machine learning, theoretical results on the feasibility of various learning tasks
+and the capabilities of specific algorithms, and examples of practical applications
+of machine learning to real-world problems.
 
