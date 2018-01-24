@@ -47,7 +47,11 @@ How can this intuition be used to build a "tree" for all possible instances of t
 Decision trees: expressiveness
 ------------------------------
 
-Consider the inclusive disjunction: **OR(a1, a2, ..., an)** (any). Note that the tree is "linear" and has a height of n.
+Consider the inclusive disjunction: **OR(a1, a2, ..., an)** (any). Note that the tree is "linear"
+
+height: O(n)
+
+nodes: O(n).
 ```
 --->a1--T-->a2--T-->...--T-->an--T-->TRUE
         |       |                |
@@ -57,7 +61,13 @@ Consider the inclusive disjunction: **OR(a1, a2, ..., an)** (any). Note that the
       FALSE   FALSE            FALSE
 ```
 
-Next, consider the exclusive disjunction: **XOR(a1, a2, ..., an)** (odd parity). Note that the tree is balanced and has height O(2^n).
+Next, consider the exclusive disjunction: **XOR(a1, a2, ..., an)** (odd parity). Note that the tree is balanced.
+
+height: O(n)
+
+nodes: O(2^n)
+
+Number of nodes is exponential to n.
 
 ```
 --->a1--T-->a2--T-->a3--T-->TRUE
@@ -67,7 +77,7 @@ Next, consider the exclusive disjunction: **XOR(a1, a2, ..., an)** (odd parity).
      |       F----->a3--T-->FALSE
      |               |
      |               F----->TRUE
-     |   
+     |
      F----->a2--T-->a3--T-->FALSE
              |       |
              |        F---->TRUE
@@ -86,8 +96,9 @@ Given n binary attributes, how many possible decision trees are there? 2^(2^n)
 Intuition:
 * There are 2^n possible configurations of the attributes.
 * Each "unique" decision tree maps these 2^n configurations into a 2^n-sized bit vector.
-* There are 2^(2^n) possible bit vectors of size 2^n.
-* Therefore, there must are 2^(2^n) possible unique classifiers.
+* Each bit has two possibilities (True or False).
+* So, There are 2^(2^n) possible bit vectors of size 2^n.
+* Therefore, there must are 2^(2^n) possible unique classifiers.(Note: $O(2^{2^n})$ is very large number. )
 * Note that more than one tree may map to a single classifier, so the hypothesis space is even larger (thanks to inductive bias, we can cut down the problem significantly).
 
 ID3 Algorithm
@@ -105,15 +116,18 @@ Else, start over for each leaf (with corresponding set of training examples)
 
 The **best attribute** is that one with the greatest information gain.
 
-<img src="http://s.wordpress.com/latex.php?latex=GAIN%28S%2C%20A%29%20%3D%20ENTROPY%28S%29%20-%20%5Csum_v%20%5Cfrac%7B%7CS_%7BA%3Dv%7D%7C%7D%7B%7CS%7C%7DENTROPY%28S_%7BA%3Dv%7D%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="GAIN(S, A) = ENTROPY(S) - \sum_v \frac{|S_{A=v}|}{|S|}ENTROPY(S_{A=v})" title="GAIN(S, A) = ENTROPY(S) - \sum_v \frac{|S_{A=v}|}{|S|}ENTROPY(S_{A=v})" class="latex">
+$$ GAIN(S,A) = ENTROPY(S) - \sum_v \frac{|S_{A=v}|}{|S|} ENTROPY(S_{A=v})$$
 
-Where ENTROPY is defined as:
+  * Where $S$ is the collection of training dataset, and $A$ is a particular attribute.
+  * Means the total entropy minus the average entropy over the sets of values of the attribute $A$.
 
-<img src="http://s.wordpress.com/latex.php?latex=ENTROPY%28S%29%20%3D%20-%5Csum_v%20p%28v%29%5Clog%20p%28v%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="ENTROPY(S) = -\sum_v p(v)\log p(v)" title="ENTROPY(S) = -\sum_v p(v)\log p(v)" class="latex">
+Where **ENTROPY** is defined as:
+
+$$ ENTROPY(S) = -\sum_v p(v)log(p(v))$$
 
 The **best attribute** is the one that splits the data into subsets whose entropies' weighted sum is the least (maximizing the information gain).
 
-<img src="http://s.wordpress.com/latex.php?latex=A%5E%2A%20%3D%20%7B%5Ctextrm%7Bargmin%7D_A%5Ctextrm%7B%20%7D%7D%20%5Csum_v%7CS_v%7CENTROPY%28S_v%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="A^* = {\textrm{argmin}_A\textrm{ }} \sum_v|S_v|ENTROPY(S_v)" title="A^* = {\textrm{argmin}_A\textrm{ }} \sum_v|S_v|ENTROPY(S_v)" class="latex">
+$$ A^* = argmin_A\sum_v|S_v|\cdot ENTROPY(S_v)$$
 
 
 The **inductive bias** of the ID3 algorithm:
@@ -121,17 +135,26 @@ The **inductive bias** of the ID3 algorithm:
   * Produces shorter trees.
 * Prefers correct classifiers over incorrect trees (thanks for that)
 
+### Bias
+* **restriction bias**:
+  * The hypothesis set your care about.
+  * For example, in this case, it's all decision trees. We're not considering the $f(x) = x^2$ or anything else.
+* **preference bias**:
+  * From the hypothesis set, what do we prefer?
+  * This is the heart of the inductive bias.
+
 
 Decision trees: other considerations
 ------------------------------------
 
 * How do handle continuous attributes?
   * Use intervals
-    * Split age range 0-90 into 0-40 and 40-90 -- perhaps even use a modified ID3 to find the best splitting age.
-* Does it make sense to repeat an attribute along a path in the tree?
+    * Split age range 0-90 into 0-40 and 40-90
+    * Perhaps even use a modified ID3 to find the best splitting age.
+* Does it make sense to repeat an attribute **along a path (appear as a child of the former oone)** in the tree?
   * No for finite-valued attributes.
-  * However, continuous attributes can be tested with different questions
-  * No question needs to be asked twice.
+  * **However**, *continuous attributes* can be tested with different questions
+  * The same question doesn't need to be asked twice.
 * When do we stop?
   * Everything classified correctly (or nearly correct -- we do not want to **overfit**).
   * No more attributes.
@@ -139,10 +162,11 @@ Decision trees: other considerations
     * Try not to have a tree which is too big.
     * Try many trees and cross-validation.
     * Variant of cross-validation where you hold out a subset of the data and build a tree breadth-first on the remaining data. Stop when error is "low enough."
-    * Build the whole tree and prune (vote if the classification is not perfect).
+    * Build the whole tree and prune （剪枝） (vote if the classification is not perfect).
 * Regression
+  * Splitting criteria: variance?
   * Model output and group them (round off or cluster).
-  * Report average on leaves, or vote, or locally fit a line (hybrid).
+  * On leaves: Report average, or vote, or locally fit a line (hybrid).
 
 
 Decision trees
