@@ -15,10 +15,10 @@ Resources in machine learning
 Defining inductive learning
 ---------------------------
 
-* Probability of successful training. 1 - \delta
-* Number of training examples. m
-* Complexity of hypothesis class. 
-* Accuracy to which target concept is approximated. \epsilon
+* Probability of successful training. $1 - \delta$
+* Number of training examples. $m$
+* Complexity of hypothesis class.
+* Accuracy to which target concept is approximated. $\epsilon$
 * Manner in which training examples presented. (especially matters in online training as opposed to batch)
 * Manner in which training examples selected.
 
@@ -33,41 +33,45 @@ Selecting training examples
 Teaching via 20 questions
 -------------------------
 
-H -- set of possible people (ask the correct question)
-X -- set of questions
+$H$ -- set of possible people (ask the correct question)
+
+$X$ -- set of questions
 
 * Teacher chooses only one question (he knows the right answer).
-* Learner chooses log |H| questions.
+* Learner chooses $log |H|$ questions.
 
 Teacher with constrained queries
 --------------------------------
 
-H: Conjunction of literals or negation -- but not negation of conjunction? (find the right conjunction)
-X: x1x2x3...xk k-bit input
+$H$: Conjunction of literals or negation -- but not negation of conjunction? (find the right conjunction)
+
+$X$: $x_1x_2x_3...x_k$ k-bit input
 
 To solve:
 * Show what is irrelevant... two positive examples which are unperturbed by a changing feature.
 * Show what is relevant... k negative examples which validate that perturbing a relevant feature matters.
 
-Even though there are 3^k (positive, absent, negated) hypotheses, the smart teacher can ask k + 2 questions.
+Even though there are $3^k$ (positive, absent, negated) hypotheses, the smart teacher can ask $k + 2$ questions.
 
 Learner with constrained queries
 --------------------------------
 
-H: Conjunction of literals or negation -- but not negation of conjunction? (find the right conjunction)
-X: x1x2x3...xk k-bit input
+$H$: Conjunction of literals or negation -- but not negation of conjunction? (find the right conjunction)
+
+$X$: $x_1x_2x_3...x_k$ k-bit input
 
 Does not know the actual answer like the teacher does so does not know what the right training examples are.
 
-Start enumerating every data point from 0,...,0 to 1,...,1 which is 2^k possibilities.
+Start enumerating every data point from 0,...,0 to 1,...,1 which is $2^k$ possibilities.
 
 The first positive result helps us significantly.
 
 Learner with mistake bounds
 ---------------------------
 
-H: Conjunction of literals or negation -- but not negation of conjunction? (find the right conjunction)
-X: x1x2x3...xk k-bit input
+$H$: Conjunction of literals or negation -- but not negation of conjunction? (find the right conjunction)
+
+$X$: $x_1x_2x_3...x_k$ k-bit input
 
 + Input arrives
 + Learner guesses answer
@@ -78,7 +82,7 @@ X: x1x2x3...xk k-bit input
 2. Given input, compute output.
 3. If wrong, set all positive features that were 0 to absent, negative features that were 1 to abset. Go to (2).
 
-Never make more than k + 1 mistakes.
+Never make more than $k + 1$ mistakes.
 
 Definitions
 -----------
@@ -89,17 +93,17 @@ Definitions
 * Mean teacher chooses examples
 
 **Computational complexity** -- how much computational effort is needed for learner to "converge"
-**Sample complexity* -- batch; how many training examples are needed for a learner to create a successful hypothesis
+**Sample complexity** -- batch; how many training examples are needed for a learner to create a successful hypothesis
 **Mistake bounds** -- online; how many misclassifications can a learner make over an infinite run?
 
 Version spaces
 --------------
 
-True/target hypothesis: c in H
-Candidate hypothesis: h in H
-Training set: S subset of X
-**Consistent learner** : produces h such that c(x) = h(x) for x in S (always produces a hypothesis that is consistent with data)
-**Version space**: VS(S) = {h in H s.t. h is consistent with S} -- hypotheses consistent with examples
+* True/target hypothesis: c in H
+* Candidate hypothesis: h in H
+* Training set: S subset of X
+* **Consistent learner** : produces h such that c(x) = h(x) for x in S (always produces a hypothesis that is consistent with data)
+* **Version space**: VS(S) = {h in H s.t. h is consistent with S} -- hypotheses * consistent with examples
 
 PAC learning -- error of h
 --------------------------
@@ -107,7 +111,7 @@ PAC learning -- error of h
 Training error -- fraction of traning examples misclassified by h.
 True error -- fraction of examples that would be misclassified on sample drawn from distribution D.
 
-error_D(h) = Pr_{x from D}[c(x) != h(x)]
+$error_D(h) = Pr_{x from D}[c(x) != h(x)]$
 
 PAC learning
 ------------
@@ -117,8 +121,8 @@ PAC learning
 * H -- hypothesis space
 * n -- |H|, size of hypothesis space
 * D -- distribution over inputs
-* 0  <= \epsilon <= 1/2    (our error goal)
-* 0 <= \delta <= 1/2   (failure-probability -- certainty goal -- with probability 1 - \delta, must produce true error less than \epsilon)
+* $0  <= \epsilon <= 1/2$    (our error goal)
+* $0 <= \delta <= 1/2$   (failure-probability -- certainty goal -- with probability $1 - \delta$, must produce true error less than $\epsilon$)
 
 
 PAC -- probably (1 - \delta) approximately (\epsilon) correct (error_D(h) = 0)!

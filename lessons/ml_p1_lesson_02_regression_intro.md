@@ -1,60 +1,113 @@
 Lesson 2: Regression & Classification
 =====================================
 
+
 What is regression?
 -------------------
 
-The term regression became overloaded over time. Initially it described how children of very tall people and children of very short people tended both to be a bit closer average height than their parents.
+Mapping continuous input to discrete/continuous outputs
 
-The "function" child_height(parent_height) looks like a line and has slope less than 1.
+* The term regression became overloaded over time. Initially it described how children of very tall people and children of very short people *tended both to be a bit closer average* height than their parents. （退化）
+
+* The "function" `child_height(parent_height)` looks like a line and has slope less than 1.
+
+* Now it is used to describe the functional form to approximate a dataset.
 
 
 Linear regression
 -----------------
 
-It's possible to fit affine hyperplanes to data. If we transform the input vectors with squared or cubed terms, etc. we can also fit any higher dimensional polynomial with the same technique.
+Use a line to fit the dataset to minimize the error.
 
-We would like for the best fit "curve" (surface) such that it minimizes an error. However, there are certain inductive biases we can make. What degree polynomial should we fit? The higher the degree, the better we can fit a set of points, but the more "overfit" the curve will be.
+Tool: calculus
+
+Error/cost function: squared error is good due to continuous and it tends to bring the thing back to the mean.
+
+### Polynomial Regression
+
+$$f(x) = c_0 + c_1x + c_2x^2 + ... +c_kx^k $$
+
+* k = 0: constant * (Best fit is the mean) *
+* k = 1: line
+* k = 2: parabola
+* *note: k should be less than the number of data points, otherwise unconstrained*
+* Larger k, more degree of freedom, less error, better fitting, but more overfitting.
 
 When we have an overfit candidate function, though it produces no error on the training set, it will not generalize.
+
+It's possible to fit affine hyperplanes to data. If we transform the input vectors with squared or cubed terms, etc. we can also fit any higher dimensional polynomial with the same technique.
 
 
 Performing linear regression
 ----------------------------
 
-Let our instance be elements of R^n. Suppose we have a training set {(x_1, y_1), (x_2, y_2), ..., (x_m, y_m)} where x_i are in R^n and y_i are in R. We would like to find w such that x dot w approximates y.
+Suppose we have a training set ${(x_1, y_1), (x_2, y_2), ..., (x_m, y_m)}$ where $x_i$ are in $R^n$ and $y_i$ are in $R$
 
-Let w be a column vector and x_i be row vectors. Define matrix X = [x_1 x_2 x_3 ... x_m] and Y = [y_1 ... y_m]. We want to find w such that wX = Y (approximately).
+$$
+\begin{pmatrix}
+1 & x_1 & x_1^2 & ... & x_1^k\\
+1 & x_2 & x_2^2 & ... & x_2^k\\
+1 & x_3 & x_3^2 & ... & x_3^k\\
+& &...& & \\
+1 & x_n & x_1^2 & ... & x_n^k\\
+\end{pmatrix}
+\begin{pmatrix}
+c_0\\
+c_1\\
+...\\
+c_k\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+y_0\\
+y_1\\
+...\\
+y_n\\
+\end{pmatrix}
+$$
 
-We find that if we multiply by X^T on both sides, we will very likely have an invertible matrix XX^T. So we arrive at:
+Then we try to solve for W in:
 
-w = Y(X^T)(XX^T)^-1
+$$\mathbf{X}\mathbf{W} \approx \mathbf{Y}$$
+$$\mathbf{W} \approx (\mathbf{X^TX})^{-1}\mathbf{X^T}\mathbf{Y}$$
 
 For details: http://en.wikipedia.org/wiki/Linear_regression
 
-This formula minimizes the squared error (prove by differentiating L(w) = ||Y - wX||^2).
+This formula minimizes the squared error (proven by differentiating $L(w) = ||Y - wX||^2$).
 
 
 Errors
 ------
 
-All data has noise/errors arising from sensor error, malicious agents, transcription error, unmodeled influences, etc.
+All data has noise/errors:
+* sensor error,
+* malicious agents,
+* transcription error,
+* unmodeled influences, etc.
 
 We should not overfit to training data in order not to model the errors.
 
 We want to train until we minimuze the mean squared error (MSE) on the training data.
 
-<img src="http://s.wordpress.com/latex.php?latex=MSE%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_i%20%28w%20%5Ccdot%20x_i%20-%20y_i%29%5E2&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="MSE = \frac{1}{n} \sum_i (w \cdot x_i - y_i)^2" title="MSE = \frac{1}{n} \sum_i (w \cdot x_i - y_i)^2" class="latex">
+$$MSE = \frac{1}{n} \sum_i (w \cdot x_i - y_i)^2$$
 
 Next we want to compute the error on various testing sets to make sure that the model is not so complicated that it overfits and doesn't generalize.
 
 Cross validation
 ----------------
 
-To check that data generalizes well, hold aside a subset of the training data as "testing data", training on the remaining set and test against the "testing data." Choose our inductive bias (picking model or model complexity) such that when the model is trained on the training set it's error on the testing set is still minimal.
+To check that data generalizes well, hold aside a subset of the training data as **testing data**, training on the remaining set and test against the testing data. **Choose our inductive bias (picking model or model complexity)** (Usage of the crossval: select better model / tune hyperparameters) such that when the model is trained on the training set it's error on the testing set is still minimal.
 
+An assumption: i.i.d, independent and identical distirbution.
+
+![cross validation demo](http://cs231n.github.io/assets/crossval.jpeg)
+
+Take each fold as the test set and average the error rate, which then becomes a good representation of the performance.
 
 Other input spaces
 ------------------
+* salar input, continuous
+* vector input, continuous
+* discrete input, vector of scalar
 
-Our instance elements need not all be reals (though the regression would be better under certain special circumstances). Ideally the values of each feature should have a natural order. Boolean vectors are a good choice often.
+In the real world the values of each feature normally don't have a natural order. Convert discrete values to Boolean vectors may be a good choice often.

@@ -76,7 +76,7 @@ VC dimension of finite H
 Upper bound: d = VC(H) implies there exist 2^d distinct concepts (each gets a different h)
 2^d <= |H|    and d <= lg |H|
 
-**Fundamental Theorem of Machine Learning** 
+**Fundamental Theorem of Machine Learning**
 H is PAC-learnable if and only if VC dimension is finite.
 
 Summary
