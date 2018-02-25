@@ -162,7 +162,7 @@ Decision trees: other considerations
     * Try not to have a tree which is too big.
     * Try many trees and cross-validation.
     * Variant of cross-validation where you hold out a subset of the data and build a tree breadth-first on the remaining data. Stop when error is "low enough."
-    * Build the whole tree and prune （剪枝） (vote if the classification is not perfect).
+    * Build the whole tree and prune (vote if the classification is not perfect).
 * Regression
   * Splitting criteria: variance?
   * Model output and group them (round off or cluster).

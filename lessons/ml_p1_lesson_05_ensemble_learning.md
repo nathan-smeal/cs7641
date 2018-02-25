@@ -1,68 +1,102 @@
-Lesson 5: Ensemble Learning: Boosting
+Lesson 5: Ensemble Learning: Boosting & Bagging
 =====================================
 
-Spam/whitelist rules ("from: spouse", "Nigeria", "has pr0n", etc.) apply to many emails, but not all. How do we generate rules? How do we combine rules? Similar to decision trees. If you already know the rules, the combining step may be like neural networks.
+Spam/whitelist rules ("from: spouse", "Nigeria", "has pr0n", etc.) apply to many emails, but not all.
 
-Boosting
+How do we generate rules? How do we combine rules? Similar to decision trees. If you already know the rules, the combining step may be like neural networks.
+
+Ensemble Learning & Bagging
 --------
 
-Combine simple rules into a complex rules.
+*Combine simple rules into a complex rules.*
 
-* Learn over a subset of data to generate a simple rule.
-* Learn over another subset of data to generate another simple rule.
+* Learn over a **subset** of data to generate a **simple rule**.
+* Learn over another **subset** of data to generate another **simple rule**.
 * ...
 * ...
 * Combine all rules.
 
-Subsetting is non-trivial.
+**Subsetting**
 
-* Uniformly randomly pick a subset of data. Apply any learning algorithm on it.
+* *Uniformly randomly* pick a subset of data. Apply any learning algorithm on it.
+
+**Combine**
+
+* Regression: Take mean.
+* Classification: equal-weighted vote.
+
+**Help with overfitting**
+* For example, ensemble using several 3-order polynomial will outperform a single 4-order polynomial on testing dataset.
 
 
-Combine is non-trivial.
+**Bagging/bootstrap aggregation** -- the method of taking random subsets, learning, and taking mean of the individual machines. This is the simplest form of ensemble method, where we imporve lots of things.
 
-* Take mean.
+## Boosting
 
-In the case where we pick single points and take the overall mean, the result is the same as n-NN with no weighting.
+**Subsetting**: Instead of picking subsets randomly, take advantage of what we are learning as we go along. Especially, **pick examples we are bad at**. Take "hardest" subsets."
 
-**Bagging/bootstrap aggregation** -- taking random subsets, learning, and taking mean of the individual machines.
+**Combine**: weighted mean/voting. To avoid just giving the average of everything. And also avoid the subsetting bounce back and forth.
 
-*Instead of picking subsets randomly, take advantage of what we are learning as we go along. Especially, pick examples we are bad at. Take "hardest" subsets."*
+#### About Error
 
-How about using a weighted mean?
+Previously we defined error in classification as the number of mismatches, which implicitly treats every example equally important.
 
-Previously we defined error in classification as the number of mismatches. Instead define **error** as Pr_D(h(x) != c(x)) where D is the distribution from which x is acquired. This allows for more probably examples to produce a greater error contribution than less likely example. We want to be good at the common points.
+Now we define error as
 
-**Weak learner** -- does better than chance always: for all D, Pr_D(h(x) != c(x)) <= 1/2 - \epsilon.
+$$Pr_D(h(x) \neq c(x))$$
 
-In some problems, there may exist distributions such that there is no weak learner. This may require an expansion of the hypothesis space (relieve the restriction bias).
+where $D$ is the distribution from which $x$ is acquired, $h$ is the hypothesis we pick, and $c$v is the underlying true concept.
+
+Note here the data points $x$ are not equally likely but drawed from the distribution $D$, and so the error rate will be affected by the $D$. Boosting is going to manipulate $D$, and this allows for harder (more probably) examples to produce a greater error contribution than already-learnt (less likely) example. We want to be good at the common points.
+
+#### Weak learner
+
+Does better than chance always: for all distribution $D$, $Pr_D(h(x) \neq c(x)) = 1/2 - \epsilon$. This means the learner always perform greater than a half.
+
+This is actually a very strong and important condition. (*Personal understanding*: For example, if the distribution can be arbitrary, there must be one hypothesis n the hypothesis space which get all data points labeled correcly.) In some problems, there may exist distributions such that there is no weak learner. This may require an expansion of the hypothesis space (relieve the restriction bias).
 
 Boosting in code
 ----------------
 
-***
-Given D = {(x_i, y_i) where y_i are -1 or +1}
-For t = 1 to T
-    construct D_t (a distribution)
-    find weak classifier h_t with small error e_t = P_D_t(h_t(x_i) != y_i) (???)
-Output H_final
-***
 
-How to construct D_t?
----------------------
+> Given D = {($x_i$, $y_i$) where $y_i$ are -1 or +1}
+>
+> For t = 1 to T
+>
+> $\qquad$ construct $D_t$ (a distribution)
+>
+> $\qquad$ find weak classifier $h_t$ with small error $\epsilon_t = P_{Dt}(h_t(x_i) \neq y_i)$
+>
+> Output $H_{final}$
 
-D_1(i) = 1/n (uniform)
-D_(t+1)(i) = D_t(i)*e^(-a_t*y_i*h_t(x_i))/z_t
-where a_t = 1/2 * ln ((1-e_t)/e_t)
+Note that $h(x_i) = 1, -1$ just means it is a binary classification problem.
 
-"Generally" puts more probability on incorrect instances and less probability on correct instances. We have an issue if error is exactly half or exactly 0.
 
-How to combine smaller classifiers into H_final?
-------------------------------------------------
+#### How to construct $D_t$? (AdaBoosting)
 
-Take a weighted average using a_t.
+Base case (uniform initialization):
 
-H_final(x) = sgn(sum_t a_t*h_t(x))
+$$D_1(i) = 1/n $$
+
+Induction on $D$:
+
+$$D_{t+1}(i) = \frac{D_t(i)*e^{-\alpha_t y_i h_t(x_i)}}{z_t}$$
+
+where $\alpha$ is going to be always positive:
+
+$$a_t = 1/2 * ln (\frac{1-\epsilon_t}{\epsilon_t})$$
+
+And $Z_t$ is the nomalization factor.
+
+When the hypothesis agrees with the truth, it will raise $e$ to some negative number (->small probability). Otherwise, it will raise $e$ to some positive number (-> large probability)
+
+So generally puts more probability on incorrect instances and less probability on correct instances. But note we have an issue if error is exactly half or exactly 0.
+
+#### How to combine smaller classifiers into $H_{final}$?
+
+Take a weighted average of all weak learner combined with $\alpha_t$. Since $\alpha_t$ carries the information of how well the weak learners perform.
+
+$$H_{final}(x) = sgn(\sum_t \alpha_t*h_t(x))$$
 
 Hypotheses/ensemble methods
 ---------------------------
@@ -80,7 +114,7 @@ Ensemble learning
 -----------------
 
 * Ensembles are good
-* Bagging is good
+* Bagging (simple ensemble) is good
 * Combines simple into complex
 * Boosting is really good -- agnostic to learner
 * Weak learners
