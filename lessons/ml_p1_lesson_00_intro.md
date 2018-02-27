@@ -1,4 +1,4 @@
-ML is teh r0x
+ML is the ROX
 =============
 
 
@@ -23,9 +23,9 @@ the given data to *generalize* to new data.
 [Note on] Induction and deduction
 ---------------------------------
 
-*Induction* takes specific examples to create a general rule. *Inductive
-bias* is necessary to come up with "useful" generalizations. *Deduction*
-takes a general rule and applies it in specific cases.
+* *Induction* takes specific examples to create a general rule.
+* *Inductive bias* is necessary to come up with "useful" generalizations. (set of assumptions that the learner uses to predict outputs given inputs that it has not encountered)
+* *Deduction* takes a general rule and applies it in specific cases.
 
 Unsupervised learning
 ---------------------

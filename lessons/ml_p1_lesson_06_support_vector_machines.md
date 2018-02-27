@@ -20,9 +20,9 @@ Translate this line up or down (e.g. to the first positive or negatice  data poi
 
 We want $w$ such that the distance between these two lines in maximal (and the choice of 1 and -1 is really arbitrary -- we just want $w$ "up to" scaling).
 
-Take the difference of 2 equations: $w^T (x_1 - x_2) = 2$ (where $x_1$ and $x_2$ are the nearest data points the line can hit if it moves upward or downward, i.e. **support vectors**.
+Take the difference of 2 equations: $w^T (x_1 - x_2) = 2$ (where $x_1$ and $x_2$ are the nearest data points the line can hit if it moves upward or downward, i.e. **support vectors**).
 
-Divide both side by $$||w||$$. Then $w^T/||w|| (x_1 - x_2) = 2/||w||$. This is the distance between the hyperplanes.
+Divide both side by $||w||$. Then $w^T/||w|| (x_1 - x_2) = 2/||w||$. This is the distance between the hyperplanes.
 
 Now we have the difference of $x_1$ and $x_2$ projected onto the normalized $w$ vector... Since $w$ is parallel to the vector from $x_1$ to $x_2$. Some handwaving magic. The left handside is the **margin** $m$.
 
@@ -56,7 +56,7 @@ $$\alpha_i \geq 0, \; \sum_i \alpha_i y_i = 0$$
 Some properties of the solution.
 
 * We can recover $w = \sum_i a_i y_i x_i$ and $b$.
-* $a_i$ are mostly 0 (which means only some of the $x_i$ matter). These data points are support vectors.
+* $a_i$ are mostly 0. This means which means only some of the $x_i$ matter. These data points are support vectors.
 * The data points are being dot producted $x_i^Tx_j$. This is a kind of measuring the similarity of points in direction.
 
 The locality because of throwing the far data points away is just like k-NN except we learn which points are important (as opposed to considering all neighbors).
@@ -70,7 +70,7 @@ What if lines are a bad hypothesis? Transform the data points and throw them int
 
 For example:
 
-$$\Phi(q) = <q1^2, q2^2, \sqrt{2}*q_1*q_2>$$
+$$\Phi(q) = <q1^2, q2^2, \sqrt{2}q_1q_2>$$
 
 Then we can find:
 
@@ -91,7 +91,7 @@ Implicitly throws data points into higher dimensional space and still get some k
 
 Kernel choice requires **domain knowledge**.
 
-$$K(x,y) = x_Ty$$
+$$K(x,y) = x^Ty$$
 $$K(x,y) = (x^Ty)^2$$
 
 Polynomial kernel:

@@ -6,10 +6,10 @@ Classification and regression
 
 In supervised learning, you are presented with instances (e.g. images of individuals) with labels (e.g. "BOY" or "GIRL") as training data. The task is to label new unlabeled instances (assuming the instance has the sufficient information).
 
-* **Classification** -- labels are discrete values (often finite, often true or false).
-  * Better definition [Shashir]: labels (codomain of the target function) have no meaningful order.
+* **Classification** -- labels are discrete/categorical values (often finite, often true or false).
+  * Better definition [Shashir]: labels (codomain of the target function) have *no meaningful order*.
 * **Regression** -- labels are reals.
-  * Better definition [Shashir]: labels have a meaningful order.
+  * Better definition [Shashir]: labels have a *meaningful order*.
 
 
 Classification learning
@@ -94,9 +94,10 @@ Decision trees: expressiveness (search space)
 Given n binary attributes, how many possible decision trees are there? 2^(2^n)
 
 Intuition:
+
 * There are 2^n possible configurations of the attributes.
 * Each "unique" decision tree maps these 2^n configurations into a 2^n-sized bit vector.
-* Each bit has two possibilities (True or False).
+* Each bit vector has two possible labels (True or False).
 * So, There are 2^(2^n) possible bit vectors of size 2^n.
 * Therefore, there must are 2^(2^n) possible unique classifiers.(Note: $O(2^{2^n})$ is very large number. )
 * Note that more than one tree may map to a single classifier, so the hypothesis space is even larger (thanks to inductive bias, we can cut down the problem significantly).
@@ -116,12 +117,13 @@ Else, start over for each leaf (with corresponding set of training examples)
 
 The **best attribute** is that one with the greatest information gain.
 
-$$ GAIN(S,A) = ENTROPY(S) - \sum_v \frac{|S_{A=v}|}{|S|} ENTROPY(S_{A=v})$$
+$$ GAIN(S,A) = ENTROPY(S) - \sum_v \frac{|S_v|}{|S|} ENTROPY(S_v)$$
 
   * Where $S$ is the collection of training dataset, and $A$ is a particular attribute.
-  * Means the total entropy minus the average entropy over the sets of values of the attribute $A$.
+  * Means the total entropy minus the average entropy over the sets of data points with attribute $A=v$ (different $v$, different sets).
+  * Note here the ENTROPY is calculate on the labels of the data data points.
 
-Where **ENTROPY** is defined as:
+Where **ENTROPY** is defined as, which discribe how divergent(impure) the data is:
 
 $$ ENTROPY(S) = -\sum_v p(v)log(p(v))$$
 
@@ -141,7 +143,7 @@ The **inductive bias** of the ID3 algorithm:
   * For example, in this case, it's all decision trees. We're not considering the $f(x) = x^2$ or anything else.
 * **preference bias**:
   * From the hypothesis set, what do we prefer?
-  * This is the heart of the inductive bias.
+  * This is the core of the inductive bias.
 
 
 Decision trees: other considerations

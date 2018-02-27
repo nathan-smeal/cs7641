@@ -2,7 +2,7 @@
 
 ## Joint distribution
 
-If we have many attributes, the table too describe the probability of the each joint event will be very large. So instead of doing this, we are going to factor the attributes down.
+If we have many attributes, the table to describe the probability of the each joint event will be very large. So instead of doing this, we are going to factor the attributes down.
 
 ## Conditional independence
 
@@ -10,7 +10,7 @@ If we have many attributes, the table too describe the probability of the each j
 $$\forall x,y,z \quad P(X=x | Y=y, Z=z) = P(X=x|Z=z)$$
 
 more compactly, we can write:
-$$P(X|Y,Y) = P(X|Z)$$
+$$P(X|Y,Z) = P(X|Z)$$
 
 Recall: normal independence gives  $P(X|Y) = P(X)$
 
@@ -27,9 +27,9 @@ Quiz Example:
 
 ![](images/11.7.png)
 
-Note that here thunfer is conditionally independent of storm given lightning.
+Note that here thunder is conditionally independent of storm given lightning.
 
-In Bayes Nets, the complexity of the table grows **exponentially** with the number of variables (**in-degree**).
+In Bayes Nets, the complexity of the table grows **exponentially** with the number of parent variables (**in-degree**).
 
 ## Sampling from the joint distribution
 
@@ -82,15 +82,15 @@ $$ P(Y) = \sum_X P(Y|X)P(X)$$
 ![](images/11.13.png)
 
 $$\begin{aligned}
-P(2=blue | 1=green) = & P(2=blue|1=green, Box=1)P(Box=1|1=green)\\
- & P(2=blue|1=green, Box=2)P(Box=2|1=green)
+P(2=blue | 1=green) = & P(2=blue|Box=1, 1=green)P(Box=1|1=green)\\
++ &  P(2=blue|Box=2, 1=green)P(Box=2|1=green)
 \end{aligned}$$
 
 Notice we actually used Total Probability Theorem in the equation break-up. And $P(Box=2|1=green)$ needs Bayes to solve.
 
 ## Naive Bayes
 
-Given a value (label, class) $v$ and a set of independent attributes $a_1,a_2,\dots ,a_n$ decided by the label. i.e. we know:
+Given a value (label, class) $v$ and a set of **independent attributes** $a_1,a_2,\dots ,a_n$ decided by the label. i.e. we know:
 
 * $P(a_i|v)$
 * $a_1,a_2,\dots ,a_n$ are independent

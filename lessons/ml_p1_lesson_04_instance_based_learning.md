@@ -26,9 +26,9 @@ The number of neighbors $k$ is a free parameter which must be learned.
 
 Given:
 * training data $D = \{x_i, y_i\}$,
+* the query point $q$:
 * distance metric $d(q, x)$
 * the required number of neighbors $k$
-* the query point $q$:
 
 $$NN= \{i: \; d(q,x_i)\; in\; k \; smallest\}$$
 
@@ -52,7 +52,7 @@ k-NN Querying  | $log\;n +k$  |$1$
 Linear Regression Learning  | $n$  |$1$
 Linear Regression Querying  | $1$  |$1$
 
-* Simple linear regression learning runs in O(n) (due to bound on the dimension of x_i, even normal equations solution is "linear" -- though this is a bit misleading) and takes O(1) space (For parameter).
+* Simple linear regression learning runs in O(n) (due to bound on the dimension of $x_i$, even normal equations solution is "linear" -- though this is a bit misleading) and takes O(1) space (For parameter).
 
 Querying in instance based algorithms may be slower (depending on the data structure), though assuming no ETL costs, learning in instance based algorithms is faster. Moreover, **incremental learning** of new data points are possible and probably very fast.
 
@@ -61,7 +61,7 @@ IBL is more lazy about learning (pushes it till querying). So k-NN is a **lazy l
 K-NN Bias
 ---------
 
-**Preference bias**: when searching the hypothesis space, the search may "prefer" a particular subset of the hypothesis space over another. Perhaps the hypothesis space is not completely searched and rather only a subset is searched. E.g. simpler trees, simpler functions, Occam`s razor. Compare to restriction bias which is the total representational power of the hypothesis space itself.
+**Preference bias**: when searching the hypothesis space, the search may "prefer" a particular subset of the hypothesis space over another. Perhaps the hypothesis space is not completely searched and rather only a subset is searched. E.g. simpler trees, simpler functions, Occam`s razor. Compare to **restriction bias** which is the total representational power of the hypothesis space itself.
 
 What about k-NN?
 
@@ -78,7 +78,7 @@ Covering the "same space" in higher dimensions requires exponentially more point
 
 Applies in all of ML and not just k-NN.
 
-Distance function weighted on the dimensionality may be a solution.
+Distance function weighted on the dimensionality may be a solution. (Less important dimensionality will have a lighter weight)
 
 Some other points
 -----------------

@@ -15,7 +15,7 @@ Bayes rule
 $$P(h|D) = \frac{P(D|h)P(h)}{P(D)}$$
 
 * $P(D)$ -- prior on the data (**The shape of the world**)
-* $P(h)$ -- prior on $h$ (this encapsulate our domain domain knowledge; **The rule of the world**)
+* $P(h)$ -- prior on $h$ (this encapsulate our domain knowledge; **The rule of the world**)
 * $P(D|h)$ -- likelihood of data given the hypothesis. **Given the rule $h$ is donimating the world, the probability that we can observe the world like $D$**.
 * $P(h|D)$ -- posteriori probability of hypothesis given data. **Given the observation $D$ of the world, the probability of the rule $h$ is ruling the world.**
 
@@ -41,11 +41,11 @@ For each $h$ in $H$, calculate and get the max argument:
 
 $$h_{MAP} = argmax_h P(h|D) \approx argmax_h P(D|h)P(h)$$
 
-Maximum a posteriori (MAP). Note that the $P(D)$ is omitted and $\approx$ is used above.
+**Maximum a posteriori (MAP)**. Note that the $P(D)$ is omitted and $\approx$ is used above.
 
 $$h_{ML} = argmax_h P(D|h)$$
 
-Maximum likelihood (ML) -- assume prior $P(h)$ is **uniform** so it is also dropped
+**Maximum likelihood (ML)**: We further assume prior $P(h)$ is **uniform** so it is also dropped. (Just like we want to select the hypothesis that **best fits the data**.)
 
 Direct computation not practical for large hypothesis spaces.
 
@@ -69,7 +69,7 @@ P(D|h) =
 0 \quad & otherwise
 \end{cases} =
 \begin{cases}
-1 \quad & if \enspace j \enspace is \enspace in \enspace VS(D) \\
+1 \quad & if \enspace h \enspace is \enspace in \enspace VS(D) \\
 0 \quad & otherwise
 \end{cases}
 $$
@@ -108,7 +108,7 @@ We can log it and ignore the constant terms for the purpose of argmax.
 
 $$h_{ML} = argmax_h \sum_i -(d_i - h(x_i))^2 = argmin_h \sum_i (d_i - h(x_i))^2$$
 
-This is the **sum of squared error**.... derived from the gaussian noise model and the maximum likelihood assumption. This means **sum of squared error** has its background theoretical support.
+This is the **sum of squared error**.... derived from the gaussian noise model and the maximum likelihood assumption. This means **sum of squared error** as a measure of how hypothesis fits the data has its background theoretical support.
 
 But this also means that whenever you use sum of squared error, you are assuming the deterministic function $f(x_i)$ the i.i.d. Gaussian noise $e_i$ in the data.
 

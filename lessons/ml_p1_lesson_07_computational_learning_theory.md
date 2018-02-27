@@ -14,10 +14,10 @@
 
 ## Defining inductive learning
 
-1. Probability of successful training: $1 - \delta$
+1. Probability of successful training: $1 - \delta$ ($\delta$ is the rate of learning failure)
 2. Number of training examples: $m$
 3. Complexity of hypothesis class $H$
-4. Accuracy to which target concept is approximated: $\epsilon$
+4. Accuracy to which target concept is approximated: $\epsilon$ (error rate)
 5. Manner in which training examples presented. (especially matters in *online training* as opposed to *batch*)
 6. Manner in which training examples selected.
 
@@ -82,7 +82,7 @@ $X$: $x_1x_2x_3...x_k$ k-bit input
 
 Algorithm (We have a hypothesis, in such case, which is a table indicates the role of each bit. We can compute the output from the input based on the hypothesis):
 
-1. Assume each feature both positive and negated in the table.
+1. Assume each feature both positive and negative in the table.
 2. Given input, compute output according to our table.
 3. If the computation from table is wrong, set all positive features that were 0 to absent, negative features that were 1 to sbsent. Go to (2).
 
@@ -109,7 +109,7 @@ Version spaces
 * Candidate hypothesis: $h \in H$
 * Training set: $S \subseteq X$
 * **Consistent learner** : produces $h$ such that $c(x) = h(x)$ for $\forall x$ in $S$ (always produces a hypothesis that is consistent with data)
-* **Version space**: $VS(S) = \{h \in H\;s.t.\; h\; is\; consistent\; with\; S\}$ -- hypotheses consistent with examples.
+* **Version space**: $VS(S) = \{h \in H\;s.t.\; h\; is\; consistent\; with\; S\}$ -- set of all hypotheses consistent with examples.
 
 PAC (Probably Approximately Correct) learning
 ------------
@@ -120,7 +120,7 @@ Training error -- fraction of traning examples misclassified by $h$.
 
 True error -- fraction of examples that would be misclassified on sample drawn from distribution $D$.
 
-$error_D(h) = Pr_{x \sim D}[c(x) \neq h(x)]$
+$$error_D(h) = Pr_{x \sim D}[c(x) \neq h(x)]$$
 
 ### Concepts
 
@@ -136,7 +136,7 @@ PAC -- probably ($1 - \delta$) approximately ($\epsilon$) correct ($error_D(h) =
 
 ### Definitions
 
-$C$ is PAC-learnable by $L$ using $H$ iff learner $L$ will with probability $1 - \delta$, output a hypothesis $h$ in $H$ such that $error_D(h) <= \epsilon$ in time and samples polynomial in $1/\epsilon$, $1/\delta$, and $n$.
+$C$ is PAC-learnable by $L$ using $H$ iff learner $L$ will with probability $1 - \delta$, output a hypothesis $h$ in $H$ such that $error_D(h) <= \epsilon$ in time and sample complexity at most polynomial in $1/\epsilon$, $1/\delta$, and $n$.
 
 ### Quiz: PAC-learnable
 
@@ -151,7 +151,7 @@ $\epsilon$-exhausted version space
 
 $VS(S)$ is $\epsilon$-exhausted iff for all $h$ in $VS(S)$, $error_D(h) <= \epsilon$
 
-Every element in the version space has error less than epsilon.
+Every element in the version space has **true error** less than epsilon.
 
 Haussler Theorem -- bound true error
 ------------------------------------
@@ -175,7 +175,9 @@ $$Pr(\textrm{at least one of }h_1,...,h_k\textrm{ consistent with }c\textrm{ on 
 
 This is the upperbound that version space is **not** $\epsilon$-exhausted after m samples. We want $\delta$ to be a bound on this. i.e.
 
-$$(ln |H|) (- \epsilon * m) <= ln \delta$$
+$$|H| e^{-\epsilon m} \leq \delta$$
+
+$$\Rightarrow (ln |H|) (- \epsilon * m) <= ln \delta$$
 
 $$\Rightarrow m \geq \frac{1}{\epsilon} (ln |H| + ln (\frac{1}{\delta}))\;(i.e. polynomial)$$
 

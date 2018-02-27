@@ -5,7 +5,7 @@ Spam/whitelist rules ("from: spouse", "Nigeria", "has pr0n", etc.) apply to many
 
 How do we generate rules? How do we combine rules? Similar to decision trees. If you already know the rules, the combining step may be like neural networks.
 
-Ensemble Learning & Bagging
+Bagging
 --------
 
 *Combine simple rules into a complex rules.*
@@ -45,9 +45,9 @@ Now we define error as
 
 $$Pr_D(h(x) \neq c(x))$$
 
-where $D$ is the distribution from which $x$ is acquired, $h$ is the hypothesis we pick, and $c$v is the underlying true concept.
+where $D$ is the distribution from which $x$ is acquired, $h$ is the hypothesis we pick, and $c$ is the underlying true concept.
 
-Note here the data points $x$ are not equally likely but drawed from the distribution $D$, and so the error rate will be affected by the $D$. Boosting is going to manipulate $D$, and this allows for harder (more probably) examples to produce a greater error contribution than already-learnt (less likely) example. We want to be good at the common points.
+Note here the data points $x$ are not equally likely but drawn from the distribution $D$, and so the error rate will be affected by the $D$. Boosting is going to manipulate $D$, and this allows for harder (more probably) examples to produce a greater error contribution than already-learnt (less likely) example. We want to be good at the common points.
 
 #### Weak learner
 
@@ -86,9 +86,9 @@ where $\alpha$ is going to be always positive:
 
 $$a_t = 1/2 * ln (\frac{1-\epsilon_t}{\epsilon_t})$$
 
-And $Z_t$ is the nomalization factor.
+And $z_t$ is the nomalization factor.
 
-When the hypothesis agrees with the truth, it will raise $e$ to some negative number (->small probability). Otherwise, it will raise $e$ to some positive number (-> large probability)
+When the hypothesis agrees with the truth, it will raise $e$ to some negative number (->make probability small). Otherwise, it will raise $e$ to some positive number (-> make probability large)
 
 So generally puts more probability on incorrect instances and less probability on correct instances. But note we have an issue if error is exactly half or exactly 0.
 

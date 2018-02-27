@@ -45,7 +45,7 @@ $$\Delta w_i = \eta (y_i-\hat{y}_i) x_i$$
 
 $$\hat{y}_i = (\sum_ix_iw_i\geq 0)$$
 
-Where: $y_i$ is the target, $\hat{y}_i$ is the output, $x_i$ is the input, $\eta$ is the learning rate.
+Where: $y_i$ is the target (ture label), $\hat{y}_i$ is the hypothesis output label, $x_i$ is the input, $\eta$ is the learning rate.
 
 This is online learning and you can stop when average error on the training set is below some threshold.
 

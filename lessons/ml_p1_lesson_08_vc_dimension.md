@@ -18,7 +18,7 @@ $X: \{1, 2, ..., 10\}$
 
 $H: h(x) = \{ x \leq \theta \textrm{ where }\theta \textrm{ is real} \}$
 
-Syntactic hypotheses space: All the things you can write
+Syntactic hypothesis space: All the things you can write
 
 Semantic hypothesis space: All the functionally different hypothesis.
 
@@ -38,7 +38,7 @@ What VC stands for
 
 **Vapnik-Chervonenkis dimension** -- the largest set of inputs shattered by a class of learners.
 
-This is related with the smount of data needed for learning.
+This is related with the amount of data needed for learning.
 
 Quiz: interval training
 -----------------------
@@ -50,7 +50,7 @@ Has VC dimension of 2.
 
 ### To **prove**:
 
-To prove VC is at least something: There exists a arrangment of data points, for all labelling combination, there exists a hypothesis that can separate them correctly.
+To prove VC is at least something: There exists an arrangment of data points, for all labelling combination, there exists a hypothesis that can separate them correctly.
 
 To prove VC is less than something: For all arrangment of data points, there exists a labelling combination, s.t. there is no hypothesis can separate them.
 
@@ -85,7 +85,7 @@ Sample complexity and VC dimension
 Update Haussler's theorem with VC dimension:
 
 infinite case:
-$$m \geq \frac{1}{\epsilon} (8* VC(H)*lg(\frac{13}{\epsilon}) + 4*lg(\frac{2}{\delta})) $$
+$$m \geq \frac{1}{\epsilon} (8VC(H)lg(\frac{13}{\epsilon}) + 4*lg(\frac{2}{\delta})) $$
 
 finite case:
 $$m \geq 1/\epsilon (ln |H| + ln (1/\delta))$$
