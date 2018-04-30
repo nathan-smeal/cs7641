@@ -42,7 +42,15 @@ In Bayes Nets, the complexity of the table grows **exponentially** with the numb
 
 In this graph, we can get:
 
-$$P(E)=P(E|C,D)P(D|B,C)P(C|A,B)P(A)P(B)$$
+$$P(A,B,C,D,E)=P(E|C,D)P(D|B,C)P(C|A,B)P(A)P(B)$$
+
+Note: (Adding variables is due to conditional independencies)
+
+$$\begin{aligned}
+& P(E|C,D)P(D|B,C)P(C|A,B)P(A)P(B)\\
+= & P(E|A,B,C,D)P(D|A,B,C)P(C|A,B)P(A)P(B) \\
+= & P(A,B,C,D,E)
+\end{aligned}$$
 
 Note that here we only need $3+3+3+1+1=11$ numbers to specify the whole distribution. In the contrary, if no conditional independencies, we need $2^5-1=31$ numbers to describe it.
 

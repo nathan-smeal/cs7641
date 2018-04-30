@@ -39,13 +39,17 @@ Bayesian learning
 
 For each $h$ in $H$, calculate and get the max argument:
 
+**Maximum a posteriori (MAP)**.
+
 $$h_{MAP} = argmax_h P(h|D) \approx argmax_h P(D|h)P(h)$$
 
-**Maximum a posteriori (MAP)**. Note that the $P(D)$ is omitted and $\approx$ is used above.
+Note that the $P(D)$ is omitted and $\approx$ is used above.
+
+**Maximum likelihood (ML)**:
 
 $$h_{ML} = argmax_h P(D|h)$$
 
-**Maximum likelihood (ML)**: We further assume prior $P(h)$ is **uniform** so it is also dropped. (Just like we want to select the hypothesis that **best fits the data**.)
+We further assume prior $P(h)$ is **uniform** so it is also dropped. (Just like we want to select the hypothesis that **best fits the data**.)
 
 Direct computation not practical for large hypothesis spaces.
 
