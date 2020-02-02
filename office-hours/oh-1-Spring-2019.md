@@ -1,0 +1,157 @@
+# Office hours #1 Spring 2020
+
+## Q&A start - Live
+
+- What is the base of log in calc entropy?
+  - base 2
+- Submitting code?
+  - Don't really spend a lot a time on code as long as readme can get someone with reasonbale knowledge to run
+  - Google drive for code and data link
+  - Don't submit code just have link in the readme
+- Do we need to memorize math?
+  - No, not focused on memorization, understanding and concept is on the algorithms in general.
+  - Nothing complicated
+  - Remember how algortihms work
+- 12 page limit is for everything - nothing beyond is considered.
+- Specific prune for dc
+  - Any form of pruning is acceptable
+  - explore it so see how it affects it's results
+  - Model complexity curve???? TODO investigate
+- Determining optimal activation function for ANN is not trivial
+  - Treat it as part of the problem (search for settings), don't have to use as hyper parameters for this, but can
+  - Using standard activation function is fine
+  - It is mostly known for the advantages and disadvanges for typical ones.
+  - Scale working at it probably doesn't matter
+  - Likely has enough hyper parameters already
+- accuracy and ROC may fall short on imbalanced data set
+  - How to eval performance changes based on this
+  - Precision and recall may be better for these
+  - May have to examine depending on the dataset
+  - should be heavily imba to matter
+- How to come up with hidden layers
+  - Number of hidden layers and number of nodes is a bit of hyper parameters
+  - a lot of stuff can get with 1 layer of hidden
+  - If requires more than 1 then
+  - complexity analysis required
+  - linearly separable dataset would be questionable to use more than one
+  - Don't overcomplicate
+- is ml rose useable?
+  - It should be, can steal code, not spefically for it
+  - ML rose is specifically written for it, but it's still fine because you have to do hyper parameters
+  - If it does everything for you then that's a problem
+- Classmate feedback?
+  - yes allowed, general feedback, no provided analysis no writing code
+  - include name if this happens
+- Resources for exploring?
+  - 2 important steps - hand and hand
+    - Model Complexity analysis - how you learn if your model is a good model
+      - given hyper parameters know how to tune them
+      - plot validation accuracy and training accuracy by hyper parameterse
+      - some have multiple hyper parameters
+      - for sake of this assignment, nn has 5-10 hypers, at least pick a couple and perform MCA
+      - model complexity plots
+      - how are you going to analyze this
+      - you won't know unless you do it
+    - learning curve?
+      - how adding samples to training sets improves performance
+      - plot training accuracy as proceed and validation
+      - know if you have high biars and hit variance then you have a problem
+    - is your set
+    - default values in libs - start from there - do learning then complexity then another learning if needed
+    - need to see at least one round of each in this assignment, and then if you need more then do it
+    - to alleviate x I did y
+    - don't need rounds and rounds etc
+    - don't go to the end of the world on each data set
+    - A lot of good online resources on this high bias, high variance, learning curve and model complexity analysis
+    - If don't plot both curves you cannot really say if you have high variance or high bias
+    - if there is a worthless learning curve that doesn't help, can lose points.
+- Divide data into Training and test sets, do not touch test set until the end
+  - if involve test set until end bias model
+  - use training and validation for hyper tuning and when it is Finally done use the test set
+  - k fold cross validation doesn't involve test set
+  - when scoping out a data set and breaking out a test set
+    - make sure it is representitive
+    - do analysis to verify
+    - some data sets will have them broken out for you
+- 2 different datasets about 2 different problems
+  - taking out features from 1 would need a good explanation (don't really do this unless there's a REALLY compelling case for it)
+  - talk about why the datasets are interesting
+    - noisy etc
+  - important thing talk about why each algs perform on the datasets
+  - look for meaningful analysis on why one does better
+- Is gradient boosting fine?
+  - Instead of ada-boost
+  - Yes
+- Turning supervised into unsupervised
+  - put aside labels completely
+  - not direct to assign 1
+  - cannot use labels as features
+  - can use to compare or check performance (test set I'm guessing)
+- How big datasets?
+  - no rule of thumb
+  - LC and MCA should tell you
+- Want some variability between the algorithms on dataset
+- Since forcing to implement the 5 algorithms
+  - choose a metric that fits algorithm as well
+  - using entropy was involved in the quesiton
+- Any red flag that we should watch for to avoid losing points (like obv plaguarism)>?
+  - most have been covered
+  - why interesting
+  - details on data set
+  - plot a bunch and no analsis
+  - Have tyo have learning curve analysis
+  - and Model complexity analysis
+  - Performance
+  - Talk about all hypers a little, address them, don't model complexity for
+  - grid search on x,y,z and this result etc
+  - label everything
+  - descriptions of graphs - not just free form
+  - make the graphs as least irratating as possible
+  - Y accuracy as test accuracy for hy
+  - do not use test for hyper parameter search (THIS IS BIAS)
+  - need both the training curve and validation curve,
+  - learning curve is to understand if high var high bias and enough data
+  - validation curve
+  - do k fold cross validation for validation curve
+  - model complexity analysis is grid search type solutions
+- is it a valid approach to change features for changes algs
+  - not required
+  - not focus
+  - systematically learn a model and talk about the results
+- scikit learn steal the learning curve, no reason to recreate
+- svm with scikit takes a while,
+- format?
+  - word doc vs latex
+  - any pdf in conference format would be fine
+  - 11-12 pt font
+- Mark stuff that you are re-using from your code
+- Maybe need to include a second learning curve
+- 2-3 plots per alg per datset
+- should use kfold regardless
+- again try to use 2 datasets
+- What defines a problem?
+  - Given these features we want to predict this
+- Do not use licensed software because they can't reproduce
+- More than one numerical to evaluate
+- Type 1 vs type 2 errors?
+- sometimes people do confusion matrix
+- A lot of that is in your initial analysis on the data set
+- MCA - x axis changes, trainnig curve vs validatrion curve (again not test)
+  - increasing model complexity
+  - idea of simplest model is the best (I'm guessing relating to overfitting)
+  - will give a curve that shows model complexity vs performance
+
+## Piazza post takeaways
+
+- Weka gui is fine??
+- https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html is fine
+
+## Notes
+
+This is almost exclusively on the first assignment. It will be a bit chaotic but to emphasize some points:
+
+- Must do both Model Complexity Analysis and Learning Curve analysis
+  - MCA is for tuning hyper parameters and seeing how complex model is (and relates to overfitting)
+  - Learning Curve
+  - <https://zahidhasan.github.io/2018-12-21-Bias-Variance-Trade-off-LearningCurve/>
+  -
