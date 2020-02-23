@@ -1,0 +1,145 @@
+# Notes on recorded Office hours #6
+
+NOTE: `F{number}` is a reference to a piazza post, it shouldn't be required but just listed as a reference for more info.
+
+the goal is that these notes are thorough enough to help in other semesters (AS SUPPLEMENTATION AS THINGS CAN CHANGE!!!)
+
+This is mostly an exercise in recall for myself, the notetaker but make could help as a searchable resource for others.
+
+## Bluejeans raw notes
+
+- ABAGAIL - Doesn't have the activation function they used...
+  - Do they need to redo neural net including learning and validation curve?
+  - Someone solved but tangent...
+  - Don't need us to do learning and validation curves again (esp validation)
+  - For now, don't need to generate all those curves
+  - Still analysis should be covering the key components (covered later)
+  - Piazza from Boros (TA)->
+    - " So as Brian pointed out, you can do ReLU with ABAGAIL. You don't necessarily need to re-generate all your results for the second assignment if you switch up data sets but you do need to have a baseline to compare to."
+- Midterm - proctortrack obv
+- Traveling salesmen is generally trying to min distance?
+  - Ok to use negative obj to maximize?
+  - Charles(instructor) endorsed answer->
+    - "What about redefining the TSP to one where the salesman wants to maximize distance traveled (maybe to get more airline miles)? That seems like a valid way to define the problem. I think it's up to us."
+  - anything if justified is ok, negative the min is common, so it's fine
+  - as long as you explain and stick to the problem in order to highlight an optimization
+  - Takeaway from notetaker: Remember focus of assignment to showcase algs, not the problems themselves.
+- "F6"
+  - Pizza ->
+    > "I referred to the MIMIC paper and tried maxKColor, expecting to highlight MIMIC over other three algorithms. However, it turned out GA has the best fitness.. I also tried knapsack with hyperparameter tuning, but MIMIC does not outperform either. Am I missing anything? I am struggling to find a problem to highlight MIMIC. Thanks.[mimic-tutorial](https://www.cc.gatech.edu/~isbell/tutorials/mimic-tutorial.pdf)"
+    - (vid)make sure 3 things:
+      - Enough iterations
+      - Hyper tuning
+      - Is the problem complex enough?
+        - Play with problem size and complexity to see if able to highlight
+        - Remember mimic needs max K coloring type problem because of the structure of hte problem
+        - Also an element of change
+  - Daniel B(TA) Answer: Look and increasing `pop_size` and play with `keep_pct` for mlrose; may need to increase max attempts to get balance for randomness
+- F7 -> don't understand question well
+  - Convergeance is when you set a criteria that the change in what you're seeing, fitness here, is not significant enough
+  - Basically more iterations don't meaningfully help, thus converged
+  - Not sure on confusion here, any graph types besides fitness vs iterations?
+  - As long as you show that the fitness function value not changing significantly
+  - Also mention your criteria for convergence
+  - Maybe do a graph for the problem size (NOT RELATED TO CONVERGEANCE)
+  - similiar to neural net convergence
+- Q: Do we need to investigate hyper params like in assign 1?
+  - Yes almost all will have it, random hill climbing really just has random restart though
+  - Study the behavior of the algorithms and find the best hyper parameter setting and use it in analysis
+- Dont' care about implementation (mlrose vs abagail)
+  - Not much overlap between part 1 and 2
+- Proctortrack question:
+  - They'll be posting info on it later
+  - webcam is required, refer to dedicated post
+- F11, What is a simple problem?
+  - What's a convex problmem
+  - NP-Hard problems are more difficult/complicated
+  - Which context these methods work well?
+    - Not just abstract
+    - THink about instance based methods (not MIMIC, GA)
+    - some randomness so doesn't get stuck, (SA) be good for? Doesn't take into account the structure, so what problems does this not matter. No distributions so if no meaningful structure then these do better
+    - GA and MIMIC, take structure in different ways
+      - GA assumes crossover mutate will lead to better fitness (locality I think)
+      - MIMIC is based on a dependence of the features, (REVIEW info theory for feature relation probably for quality analysis )
+      - Easy if you think about it by structure, what will crossover work well on? What it won't then mimic
+      - GA and MIMIC will be suited to different structures.
+  - Probably see some get stuck in local minima, graph of fitness then reason through why it ended up where it did
+- F12
+  - Need to explain why optimazation interesting?
+  - Usually...
+    - Is it np-hard or not?
+    - How many Max and min
+    - Is there structure?
+    - What will do well on it?
+- F15 ->
+  - pt1 -> No normalize feature data can I recreate my NN from A1 in mlrose for A2?
+    - Yes
+  - pt2 -> ... specific question, no you'd change the architecture
+    - May need onehot encode on both assignments if you need the hot encode in A2 but didn't in A1
+    - Basically you may need to redo NN if doesn't fit with mlrose etc
+  - pt3 -> freeze lelarning rate? Not necessarily because not gradient descent
+- Why cross validaiton?
+  - Don't specifically need model complexity or learning curve because A1 it was needed, A2, learning neural network should have cross validation (taking into account randomness)
+  - Hyper params for neural network and other optimization algs
+  - So need cross validation to show this.
+  - A1 told you that when learning a new model you may be suffereing from high bias/variance. Don't need large analysis but
+  - EXAMPLE: For GA to converge may need to run a lot, but this could cause it to overfit. This is asdie from performance, but your analysis should say that there is a chance for overfit and what could I do?
+    - impose regularization on the weight size
+  - The other section, there is no learning so all this doesn't matter, the neural net section may need to touch it.
+    - May need to speculate since can't see what's going on.
+    - MOdel complexity curves not necessarily a must
+    - probably don't need a lot of steps to reduce the variance
+  - NN part, there are still hypers to tune, aside from structure; so CV req'd
+    - Need to think if you have to run until convergence are you overfitting or not.
+    - (Tie in with calc and grad descent???)
+- F19 -> Should redo?
+  - mlrose doesn't have access to same hyper-parameters
+    - If it significantly affects may need to redo in mlrose
+    - if you don't probably not penalize hopefully the difference is not the same
+    - if redo probably don't need a ton of analysis for hyper since reproducing
+      - did grid search for baselines etc etc review if needed.
+    - don't need to compare scikit learn and mlrose NN, no, just need to compare whichever is baseline to randopt
+- Convex??
+  - Probably don't think about it this way, just think about it as simple or complicated
+  - this assignment is more about running the algorithm, you should be able to tell if non-convex if rando hill climbing and sim annealing have issue with it.
+- Fixed learning rate?
+  - It's own hyper param, not a part of NN structure so it can be tuned.
+- A lot of questions about the difference between scikit learn vs mlrose
+  - Should I redo because labels don't work in mlrose? Probably not because perf shoudl be same (changes 1,2 to 0,1 with labels not matter); but if see a difference then it's probably because the hyper params are different
+- F24
+  - What does highlighting specific RO algo mean given they will perform differently by tune?
+    - Some are better for structure based problems and some are better at instance based problems so a problem needs to highlight them based on the structure or lack there of.
+    - While hyper param tuning can make it diff, which you need to do for each, basically what does the BEST for each perform?
+  - A sigmoid is a sigmoid??? don't understand question.
+  - Tons of different optimizations, but all are not covered in one class.
+  - scipy has a lot of the optimizations
+    - most of the time R provides you with most optimizations
+  - Number of iterations; number of function evaluations (if each iteration call eval the same number then relationship will be linear)
+  - Overall from Daniel(TA) -> " For simplicity, you can tune your algorithms for a baseline complexity and then vary the complexity of the problem to see the changing behavior with the same tuning. If you have time, you may tune for each complexity. Just state your experimental methodology and justifications in your analysis."
+- IF WORKING WITH IMBALANCE DATASETS THEN NEED MORE METRICS THAN ACCURACY
+  - "F1, precision, recall, PRAUC, confusion matrices, et cetera... See previous OH posts for discussion and motivation for using these."
+- The goal of the assignment is to describe the difference between gradient descent vs these other optimizations (for the neural net) vs discrete
+  - Don't have the same looping of info with the other rando optimizations
+  - which one is superior and why
+  - The main point is that you're supposed to see differences for back prop and rando (backprop should be cheaper I think)
+- Can use hiive mlrose (pretty sure)
+- mlrose can't have multiclass, has to be a single classification
+- [f29] onemax, flipflop, four peaks with mlrose...
+  - Time to reach optimal answer vs wall time vs iterations
+  - GA and MIMIC take less iterations but more times in some (This is actually normal)
+  - The function evaluation is much more complicated than for example SA, but need less evaluations
+  - Just need to explain why this happens in teh assignment
+  - Are these adequate?
+    - Not seeing fitness function
+    - Not seeing convergeance analysis (Need to find that exact thing)
+    - Need to talk about why you determined max
+    - need plots for fitness values
+- F30
+  - ABAGAIL is taking too long, think about reducing datasize, redo?
+    - yes likely (could be lucky in downsampling behaving same)
+  - Cross validation accuracy will be enough (Test vs train), for analyzing convergeance vs backprop.
+- F31 - finetune RO to be comparable or better than backprop
+  - probably not because you cannot force it to do better than backprop (it's not going to happen)
+  - Just make sure you tuned it the best you can so it's best comparison
+- Wall clock vs iterations for convergence?
+  - Answers own question, both are useful for performance
