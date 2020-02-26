@@ -153,15 +153,46 @@ To remember the history and distribution:
 
 ## MIMIC
 
+Cons of above methods
 
+- Only points, no structure communicate/modeled
+- Unclear probability distribution
+  - Need:  Directly model probablility distro?
 
+MIMIC - (Mutual Information Maximizing Input Clustering)
 
+Overall the goal is to successfully refine the model in order to convey structure of the data
 
+### Pseudo Code
 
+1. Generate Samples from $P(X^\theta)$
+   1. (Note this is similar to populations in GA)
+2. Set $\theta_{t+1}$ to the $n^{th}$ percentile
+   1. (This is fittest analog to GA)
+3. Retain only those samples that satisfy:
+   1. $s.t. \space\space f(x) \geq \theta_{t+1}$
+4. Estimate $P(X)^{\theta_{t+1}}$
+   1. This is part of the step that helps model **structure**
+5. Repeat steps 1-4
 
+Stucture is hidden in the probability distribution ($\theta$ is the threshold)
 
+$\theta$ overtime increases
 
+$\theta_{min}$ ........................................ $\theta_{max}$  (Converged and done here)
 
+Works if 2 things are true
 
+1. Can estimate a probability distribution
+2. $P\theta \approx P\theta_{t+1}$
 
-...
+### MIMIC:  Estimating Distribution
+
+$$
+P(X)=P(X_1 | X_2....X_n)P(X_2|X_3...X_n)...P(X_n) \\
+\\
+\\
+X=[X_1 X_2...X_n]
+$$
+
+When using a dependency tree (Baynesian Network edge 1 parent)
