@@ -84,12 +84,16 @@ Learning a classifier using **gradient descent** on a linear regression model us
 
 $$\Delta w_i = \eta(y - \mathbf{w \cdot x})x_i$$
 
-Sigmoid
+Sigmoid ("S-like")
 -------
 
 Why not do gradient descent on the original perceptron itself rather than remodeling it as linear regression? The step function is not **differentiable**. We can get around this with the sigmoid function (hyperbolic tan, arctan, logistic sigmoid).
 
 $$\sigma(a) = \frac{1}{1 + e^{-a}}$$
+
+$a \rightarrow -\infin ; \sigma(a) \rightarrow 0\\$ 
+$a \rightarrow +\infin ; \sigma(a) \rightarrow 1$ 
+
 
 Note that the derivative has a nice form:
 
@@ -106,7 +110,11 @@ Using the sigmoid and the dot product, we can get the data flow:
 
 **Backward**: Since all of the computation is differentiable, then we can compute the gradient using chain rule of the output with respect to all the parameters. So we can use the **backpropagation** to update the parameters.
 
+output layer error -> hidden layer
+
 With networks, due to the combination of lots of non-linear functions, there may be many local optima. We need to use clever techniques to arrive at a suitable set of weights.
+
+Backpropagation has to be differentiable!
 
 Optimizing weights
 ------------------
@@ -116,8 +124,9 @@ How do arrive at a suitable set of weights? Optimization problem.
 * Use momentum terms in the gradient (simulated annealing?)
 * higher order derivatives (hamiltonians, etc.)
 * randomized optimization (later on in the course)
-* penalty for "complexity" (overfitting) -- too many hidden layers? too many nodes in a layer? large valued weights (interesting)
+* penalty for "complexity" (overfitting) -- too many hidden layers? too many nodes in a layer? large valued weights (interesting) sometimes penalizes networks for size of weights
 
+Optimization <=> Learning
 
 Restriction bias
 ----------------
@@ -129,6 +138,9 @@ Perceptrons are linear models (discriminant lines splitting planes). Networks of
 * Boolean functions -- network of threshold-like units.
 * Continuous functions -- use sigmoid activation and a hidden layer.
 * Arbitrary functions -- stitch together two or more functions with discontinuitives with two hidden layers.
+  * layers act as patches
+
+Not very restrictive, very expressive given complex enough neural network.
 
 Overfitting problem with more complex networks.
 
@@ -144,6 +156,8 @@ Preference bias
 Preference bias -- which representation is preferred by the algorithm.
 
 Generally we initialize the network with small random weights -- we prefer "simpler"/less complex representations. (This can hit a local minimum. We generally run the training multiple times to avoid local minimum.)
+
+Remember small weights help avoid overfitting.
 
 Practically, (Occam's Razor) produces **simpler and generalizable representations**.
 

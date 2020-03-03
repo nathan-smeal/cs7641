@@ -58,6 +58,13 @@ Querying in instance based algorithms may be slower (depending on the data struc
 
 IBL is more lazy about learning (pushes it till querying). So k-NN is a **lazy learner** (or "just in time" learner) whereas linear regression is an **eager learner**.
 
+K-nnowledge
+-----------
+
+L1 or manhatten distance in lieu of euclidean distance.
+
+Changing 1,3-K and swapping distance metrics for $y=x_1^2 + X_2$ varies wildly and doesn't generalize well in the quiz. (note this is because the bias of knn is especially bad for that target concept)
+
 K-NN Bias
 ---------
 
