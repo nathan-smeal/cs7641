@@ -9,8 +9,11 @@ Mapping continuous input to discrete/continuous outputs
 
 * The term regression became overloaded over time. Initially it described how children of very tall people and children of very short people *tended both to be a bit closer average* height than their parents. i.e. The "function" `child_height(parent_height)` looks like a line and has slope less than 1.
 
-* Now it is used to describe the functional form to approximate a dataset.
+* The fact that it's less than one is why it's a regression to the mean
 
+* like a random walk
+
+* Now it is used to describe the functional form to approximate a dataset.
 
 Linear regression
 -----------------
@@ -30,6 +33,11 @@ $$f(x) = c_0 + c_1x + c_2x^2 + ... +c_kx^k $$
 * k = 2: parabola
 * *note: k should be less than the number of data points, otherwise unconstrained*
 * Larger k, more degree of freedom, less error, better fitting, but more overfitting.
+
+Learning curve by degrees (model complexity)|
+-|-
+![](2020-03-02-20-16-00.png)|
+
 
 When we have an overfit candidate function, though it produces no error on the training set, it will not generalize.
 
@@ -96,7 +104,9 @@ Cross validation
 
 To check that data generalizes well, hold aside a subset of the training data as **testing data**, training on the remaining set and test against the testing data. **Choose our inductive bias (picking model or model complexity)** (Usage of the crossval: select better model / tune hyperparameters) such that when the model is trained on the training set it's error on the testing set is still minimal.
 
-An assumption: i.i.d, independent and identical distirbution.
+Representitive! -> An assumption: i.i.d, independent and identical distirbution.
+
+This is a fundamental assumption in learning
 
 ![cross validation demo](http://cs231n.github.io/assets/crossval.jpeg)
 

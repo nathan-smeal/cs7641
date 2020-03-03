@@ -48,3 +48,13 @@ Comparison of these parts of ML
 
 All learning is "optimization." SL wants to label data well. RL wants to
 score well. UL has scientist-imposed criteria for correctness.
+
+Optimization subset| Typical goals
+-|-
+SL| Labels Data Well
+RL | behavior scores well
+UL | Clusters scores well
+
+All of it boils down to DATA, Data, DATA
+
+Often ML developer thinks more about the data rather than the algorithms.

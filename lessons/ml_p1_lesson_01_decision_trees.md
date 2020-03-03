@@ -8,26 +8,27 @@ In supervised learning, you are presented with instances (e.g. images of individ
 
 * **Classification** -- labels are discrete/categorical values (often finite, often true or false).
   * Better definition [Shashir]: labels (codomain of the target function) have *no meaningful order*.
-* **Regression** -- labels are reals.
+* **Regression** -- labels are reals (continuous).
   * Better definition [Shashir]: labels have a *meaningful order*.
 
+Note this is about the output not the input.
 
 Classification learning
 -----------------------
 
 * **Instances** -- inputs (vectors of features).
-* **Concept** -- a function which maps instances to labels (there many concepts: |labels|^|instance space|).
+* **Concept** -- a function which maps instances to labels (there many concepts: |labels|^|instance space|).  (or maps inputs to outputs)
   * [Shashir] Concepts are the set of functions mapping from the instance space to the labels space.
-* **Target concept** -- the function which maps instances to the **correct** labels.
+* **Target concept** -- the function which maps instances to the **correct** labels. (actual answer)
   * [Shashir] The target concept is a specific concept which we wish to model.
-* **Hypothesis** -- set of concepts which we are willing to search for the best approximation of the target concept.
-  * [Shashir] Subset of the concepts set. Easier space to search through, but introduces *inductive bias*.
+* **Hypothesis** Class -- set of concepts which we are willing to search for the best approximation of the target concept.
+  * [Shashir] Subset of the concepts set. Easier space to search through, but introduces *inductive bias*.  
 * **Sample (training set)** -- set of inputs with correct labels.
 * **Candidate** -- the "best" concept chosen from the hypothesis by the learning algorithm using the sample.
-  * [Shashir] Element of hypothesis which best approximates the target concept according to our learning algorithm.
+  * [Shashir] Element of hypothesis which best approximates the **target concept** according to our learning algorithm.
 * **Testing set** -- set of instances with correct labels, similar to the training set, but used to measure how well the candidate performs on novel data.
 
-The testing set should contain many examples not found in the training set.
+The testing set should contain many examples not found in the training set.  This is to demostrate that you're aable to generalize
 
 Decision trees
 --------------
@@ -127,14 +128,15 @@ Where **ENTROPY** is defined as, which discribe how divergent(impure) the data i
 
 $$ ENTROPY(S) = -\sum_v p(v)log(p(v))$$
 
-The **best attribute** is the one that splits the data into subsets whose entropies' weighted sum is the least (maximizing the information gain).
+The **best attribute** is the one that splits the data into subsets whose entropies' weighted sum is the least (maximizing the information gain or reduction in randomness).  Entropy is described as randomness.  (coin flip is 1 bit of entropy)
 
 $$ A^* = argmin_A\sum_v|S_v|\cdot ENTROPY(S_v)$$
 
 
 The **inductive bias** of the ID3 algorithm:
 * The best splitters appear earlier (closer to the root).
-  * Produces shorter trees.
+  * Good splits near the top.
+* Produces shorter trees.
 * Prefers correct classifiers over incorrect trees (thanks for that)
 
 ### Bias
@@ -166,7 +168,7 @@ Decision trees: other considerations
     * Variant of cross-validation where you hold out a subset of the data and build a tree breadth-first on the remaining data. Stop when error is "low enough."
     * Build the whole tree and prune (vote if the classification is not perfect).
 * Regression
-  * Splitting criteria: variance?
+  * Splitting criteria: variance?  (in place of info gain, since don't have )
   * Model output and group them (round off or cluster).
   * On leaves: Report average, or vote, or locally fit a line (hybrid).
 
