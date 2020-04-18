@@ -9,11 +9,11 @@ C defect     | 0, -9  | -6, -6
 
 If the Prisoner's Dilemma is conducted for multiple times, there is nothing more for them to do: it turns out that they always defect each other.
 
-What happens if the number of the rounds is left unknown? It make difference.
+What happens if the number of the rounds is left unknown? It *does* make difference.
 
 ### Uncertain End: Discounting
 
-With the probability $\gamma$ (the same notation as the discount factor), the game continues after each round. Every round could be your last round, or not.
+With the probability $\gamma$ (the same notation as the discount factor), the game continues after each round. Every round could be your last round, or not. Each round is independent of other rounds.
 
 Expected number of rounds ($\gamma<1$)?
 $$\frac{1}{1-\gamma}$$
