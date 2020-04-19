@@ -37,6 +37,8 @@ Bagging
 
 **Combine**: weighted mean/voting. To avoid just giving the average of everything. And also avoid the subsetting bounce back and forth.
 
+* How we weight will be vary important.  
+
 #### About Error
 
 Previously we defined error in classification as the number of mismatches, which implicitly treats every example equally important.

@@ -98,9 +98,9 @@ Definitions
 
 **Computational complexity** -- how much computational effort is needed for learner to "converge"
 
-**Sample complexity** -- batch; how many training examples are needed for a learner to create a successful hypothesis
+**Sample complexity** -- batch; how many training examples are needed for a learner to create a successful hypothesis (focus on nature choosing)
 
-**Mistake bounds** -- online; how many misclassifications can a learner make over an infinite run?
+**Mistake bounds** -- online; how many misclassifications can a learner make over an infinite run?  (doesn't care about mean teacher it's going ot make it's mistakes either way)
 
 Version spaces
 --------------
