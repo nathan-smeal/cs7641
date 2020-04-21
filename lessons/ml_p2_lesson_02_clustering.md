@@ -13,6 +13,7 @@
 - Set of objects $X$
 - inter-object distances: $D(x,y) = D(y,x)\text{ for } x,y \in X$
   - The similarity between objects, just like kNN. But it is where all things are based on.
+  - Distance is some kind of metric, like a statistical distance.
 
 **Output**:
 
@@ -25,6 +26,8 @@
 
 ## Single Linkage Clustering (SLC)
 
+type of **hierarchical agglomerative clustering (HAC)**
+
 Algorithm:
 
 > - consider each object as a cluster ($n$ objects)
@@ -34,7 +37,7 @@ Algorithm:
 > - consider instances in the same cluster as zero(though really you should only be thinking in concept of clusters, where instances are first 1:1 clusters then it doesn't matter)
 
 By recording the links added, we can form a **hierarchical agglomerative clustering** (HAC) structure, which is a tree.
-Tree represtation|
+Tree representation|
 -|
 ![tree image](2020-02-22-15-24-36.png)|
 The definition of the inter-cluster distance depends on domain knowledge and impacts on the effectiveness.
@@ -99,10 +102,12 @@ $$\underset{t=t+1}{\Leftrightarrow} center_i^t\text{ :}=\sum_{y \in C_i^t} y / |
 - Configurations: $center$, $P$
 - Scores (errors): $E(P,center)=\sum_x ||center_{P(x)} - x||_2^2$
   - Defined as the sum of deviations from the center of each points.
+  - Note you want to minimize this error as your optimization
 - Neighborhood: $P, center = \{center', P\} \bigcup \{center, P'\}$
   - Changing either one element of the configuration.
+  - Change partition or center
 
-K-means is just running the **hill climbing** using the above settings.
+K-means is just running the **hill climbing** using the above settings.  You take a step between configurations to find the min/max of your optimization.
 
 **Thus**, we can notice that, in both equation $(1)$ and $(2)$, the value of error function can never go up, and thus the error function becomes a monotonically non-decreasing function in the progress of k-means.
 
@@ -113,7 +118,7 @@ K-means is just running the **hill climbing** using the above settings.
 - Error decreases (if ties are broken consistently)
 - Can get stuck - When meeting a local optima.
   - random restarts
-  - Get initial centers spread out.
+  - Get initial centers spread out.  (initial centers don't have to be points, but it does tend to help spread things out)
 - K-means guarantees to converge, but there may be multiple local and global optime, so it is not deterministic.
 - If centers are clustered themselves, it can lead to misleading clusters (See quiz #12)
   - Solutions are solved by the local optima answers(random restarts)
@@ -149,8 +154,10 @@ $$
 - $Z_{i,i}$ is the likelihood that the data point $i$ comes from the cluster $j$.
 - The left part **Expectation** is the Beyes rule with the prior $P(\mu=\mu_{i/j})$ omitted.
 - The right part **Maximization** gets the weighted average (centroids) from the datapoints.
+  - this is the piece that lends to soft clustering
 - The $P(x=x_i|\mu=\mu_i)$ obeys Gaussian distribution.
-- It will becomes exactly k-means if we assign cluster using argmax.
+- It will becomes exactly k-means if we assign cluster using argmax(probability discrete 1s or 0s).
+- Instead of improving in the error metric, it is improving in the probability metric
 
 ### Properties of EM
 
@@ -158,6 +165,7 @@ $$
 - Does not converge (practically does).
   - Because in the probability space, there are infinite number of configurations. So the result can get closer and closer to the best result but may never be able to reach there.
 - Will not diverge.
+  - because deals in probabilities
 - Can get stuck in local optima.
   - random restart
 - Can work with different probability distribution. (if E and M are solvable). For example, the Bayes net stuff.
@@ -176,7 +184,7 @@ $$\forall C \; \exists D \;s.t. \;P_D=C$$
 
 $$\forall D \; \forall k>0, \; P_D = P_{kD} $$
 
-**Consistency**: Shrinking the intra-clustering distances or expanding the inter-cluster distances should not change the clustering.
+**Consistency**: Shrinking the intra-clustering distances or expanding the inter-cluster distances should not change the clustering.  Again, emphasize that distance is a generic metric for similarity here.  If you make a cluster more similar and other clusters less similar to each other, there shouldn't be a change in clustering.
 
 $$P_D = P_{D'}$$
 
@@ -194,7 +202,7 @@ Note:
   - For scale invariance, it only cares about order
   - For same reason of scale, it is consistent
 - Scale, can multiple by theta to make it n clusters and divide by theta means 1
-- The third one is not consistent because if we expand distance between 2 clusters so that the $\omega$ increase (to infinity), this will prevent the original clusters to merge.
+- The third one is not consistent because if we expand distance between 2 clusters so that the $\omega$ increase (to infinity), this will prevent the original clusters to merge because the allowable distance would be so small(divide by $\omega$).
 
 ### Impossibility Theorem (_Kleinberg_)
 
@@ -206,7 +214,7 @@ No clustering algorithm can all three of these:
 
 How bad it is?
 
-- can you have 2.9?  Review kleinberg's paper for more info (redefining terms a bit)
+- can you have 2.9?  Review kleinberg's [paper](https://www.cs.cornell.edu/home/kleinber/nips15.pdf) for more info (redefining terms a bit)
 - Unlikely to be able to completely automate but can do to get to know your data better
 
 ## Summary
