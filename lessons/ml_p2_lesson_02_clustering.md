@@ -228,3 +228,10 @@ How bad it is?
 - clustering properties and impossibility theorem
 
 ...
+
+## Supplement for EM
+
+I had to improve my intuition with another lecture.  I think if you have a good handle on EM don't worry about it.  
+
+https://www.youtube.com/watch?v=REypj2sy_5U
+https://www.youtube.com/watch?v=iQoXFmbXRJA
