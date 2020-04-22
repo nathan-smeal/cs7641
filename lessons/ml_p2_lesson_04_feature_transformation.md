@@ -8,16 +8,22 @@ $$x\sim \mathbb{F}^n \rightarrow \mathbb{F}^m$$
 
 Where usually $m<n$ and the transformation linear ($P_x^T$)
 
+Project old features to new feature space.
+
 ## Feature Transformation Motivation
 
+One could argue that Neural net implicitly doing this already.
+
 **Example: information retrirval from documents.**
+
+Ad hoc or the google problem
 
 Features: words, a lot of words. They are good indicators?
 
 * Polysemy: one word can mean many things. This can cause false positive.
-* Synonomy: many words can mean one thing. This can cause false negatice.
+* Synonomy: many words can mean one thing. This can cause false negative.
 
-So, words are insufficient indicator features.
+So, words are insufficient indicator features.  Can't simply do feature selection.
 
 **Solution**: transformation, from words to new feature space.
 
@@ -29,8 +35,11 @@ Find the components in features that:
 
 * Maximizes the variance
 * Are mutually orthogonal
-
+  * Direction doesn't matter in principal?
+  
 ### Properties
+
+[paper](https://www.cs.princeton.edu/picasso/mats/PCA-Tutorial-Intuition_jp.pdf)
 
 * Global algorithm: all the new features they find have a big global constraint - they are mutually orthogonal.
 * Best reconstruction: No information loss in transformation (when keepig all the principal components).
@@ -48,11 +57,14 @@ Find the components in features that:
   + Knowing the value of one of the new features won't give any prediction another.
   + i.e. mutual information $I(y_i,y_j) = 0$.
   + It will maximize the mutual information $I(X,Y)$.
+  + Also can predict from either X to Y or Y to X
 * ICA also makes assumption that the new features are highly non normally-distributed.
 
 The ICA is trying to from the observables find the independent hidden variables which cause the observables in a linear way.
 
 ### Example: Blind source Separation (Cocktail Party Problem)
+
+[paper](https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf)
 
 * Hidden variables: The voices of people talking.
 * Observables: The recordings of the microphones.
@@ -80,6 +92,11 @@ So PCA tends to summing up the independent things but ICA tries to teasing apart
 
 > Intuitively speaking, the key to estimating the ICA model is nongaussianity.
 
+
+PCA is maximal reconstruction
+
+ICA the new variables Y are mutually independence and joint mutual information of original features together
+
 * Blind Source Separation Problem: ICA almost is designed for this but PCA does bad.
 * **Directional**; PCA gives the same answer if the data matrix is rotated 90 degree. But ICA gives a totally different answer. So ICA is highly directional and PCA is much less so.
 * Run algorithm on faces:
@@ -91,9 +108,13 @@ So PCA tends to summing up the independent things but ICA tries to teasing apart
 * Run algorithm on documents:
   + ICA: topics.
 
+[charles-paper](http://www.cc.gatech.edu/~isbell/papers/isbell-ica-nips-1999.pdf)
+
 ## Alternatives
 
 ### RCA: Random Components Analysis
+
+AKA Random projections 
 
 Generate random directions and do projection.
 
@@ -102,15 +123,28 @@ It WORKS!
 * It reduces the number of dimensions, which helps with the curse of dimensionalities.
 * The projection at least captures some of the correlations.
 * It is fast/easy/cheap.
+* Not great at reconstruction
+* Typically needs more new features than ICA or PCA
+* sometimes M > N (new features are more!)
+* So simple but still works
+  * Wise man says must earn your complexity
 
 ### LDA: Linear Descriminant Analysis
 
 Find a projection that descriminate (find a linear transformation) based on the labels.
 
-It's just like the supervised learning.
+It's just like the supervised learning.  Similar to SVM.  Others are like filtering.
 
 
+## Summary
 
+Analysis of the data leads to structure
+
+Probability vs linear algebra
+is to...
+ICA vs PCA
+
+linear alg well understood and doesn't get stuck but doesn't always give you what you want.
 
 
 
