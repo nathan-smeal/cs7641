@@ -25,6 +25,8 @@ Unfair(always heads) -> 0 bits (Don't need it sent)
 
 This measure is entropy. (Ignore robust compression for this though experiment)
 
+Shannon said entropy is the number of yes/no questions to get info.
+
 ## Sending a new Message
 
 Which message has more information?
@@ -134,7 +136,9 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-Please take note of the fairly obvious outcomes with the equations as a trivial answer.
+Please take note of the fairly obvious outcomes with the equations as a trivial answer.  
+
+Remember to think of entropy as the number of bits required to represent the data.  That is the intuition for the equations.  Since A and B are independent you will always need 2 bits!  So joint entropy is 2!  The conditional is the same as each respective coins entropy because they are indepent!
 
 It serves as a good linkage between terms, formulas and intuition that should make recall easier.
 
@@ -170,6 +174,8 @@ $$\begin{aligned}
 $$
 
 Please take note of the fairly obvious outcomes with the equations as a trivial answer.
+
+Remember to think of entropy as the number of bits required to represent the data.  That is the intuition for the equations.  Since A and B are dependent you need 1 bit, because if you know one, then you know the other!  So the joint entropy is 1!  Also, the conditional is zero because if you know what one coin is, you know what the other which joint is assuming A given B
 
 It serves as a good linkage between terms, formulas and intuition that should make recall easier.
 
