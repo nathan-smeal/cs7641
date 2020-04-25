@@ -15,6 +15,8 @@ What happens if the number of the rounds is left unknown? It *does* make differe
 
 With the probability $\gamma$ (the same notation as the discount factor), the game continues after each round. Every round could be your last round, or not. Each round is independent of other rounds.
 
+From a stochastic perspective the $\gamma$ functions the same
+
 Expected number of rounds ($\gamma<1$)?
 $$\frac{1}{1-\gamma}$$
 
@@ -52,6 +54,7 @@ Our choice impacts an payoff and future decisions of the opponent.
 
 * Matrix is all we needed when the game is played **only once**.
 * MDP! We can use our methods in MDP to solve this.
+  * Always has a markov deterministic optimal policy
 
 Our policy facing TfT:
 1. always coop
@@ -67,10 +70,12 @@ Mutual Best Reponse: Pair of strategies that are the best response to each other
 Note:
 * Now that besides the always defect for both, TFT for both is also a N.E.
 * We have changes the game structure: now the value has been the total rewards among multiple rounds of game and the number of rounds is unknown.
+* Change rewards from expected reward, to expected rewards
 
 ## Repeated Game and the Folk Theorem
 
 General idea: In repeated games, the possibilty of retailation opens the door for cooperation.
+
 
 **"Folk Theorem"** (Oral tradition): **In mathematics**, results are known, at least to some experts to the field, and considered to have established status, but not published in complete form.
 
@@ -80,9 +85,13 @@ In game theorem, Folk Theorem refers to a particular result: Describes the set o
 
 **Feasible region**: Average payoff of some possible joint strategy.
 
+similar to the matrix, but you lose representation if the player changes strategy.
+
 For Prisoner's Dilemma:
 
 ![](images/two_player_plot.png)
+
+This is a convex hull.  All averages must occur within it as the feasible region.  May have to collude for some of these in practice.
 
 ### Minimax Profile
 
@@ -90,6 +99,8 @@ Pair of payoffs, one for each player, that represent the payoffs that can be ach
 
 * Malicious adversary: Trying to minimize my score.
 * Zero-sum game: an example for malicious adversary.
+
+Remember that their choices are independent.  That is why the quiz is .66,.66 
 
 ### Security Level Profile
 
@@ -122,6 +133,12 @@ If Grim is playing with the TFT:
 * Is this a Nash Equilibrium? Yes, they will always cooperate.
 * Is this a subgame perfect? No, if TfT starts with D, then they will defect each other forever, which means such threat is implausible.
 
+### TFT vs TFT
+
+Subgame perfect? NO, changing strat is beneficial
+
+![](2020-04-25-12-58-08.png)
+
 ### Pavlov
 
 Cooperate if agreed, defect if disagree.
@@ -138,40 +155,58 @@ Pavlov vs. Pavlov: They are in Nash Equilibrium. They will always cooperate and 
 
 They will end up being the mutual cooperate state. And it is a plausible threat.
 
+Paper on people being pavlov like:  https://www.pnas.org/content/93/7/2686.short
+
+Don't think that paper will directly impact course material.
+
 ### Computational Folk Theorem
 
-In a 2-player bimatrix averaged reward repeated ($\gamma \rightarrow 1$) game.
+In a 2-player bimatrix(2 players) averaged reward repeated ($\gamma \rightarrow 1$) game.
 
 Then we can build a Pavlov-like machine for any game and use that to construct subgame perfect Nash equilibrium for any game in polynomial time.
 
 * If it is possible for us to build mutual beneficial relationship, then we can build the pavlov-like machine quickly.
 * If it is zero-sum game, then we can solve linear programming, in polynomial time and work out the strategy.
+* at most one player improves
 
 ## Stochastic Game and multi-agent RL
 
-MDP for RL is stochastic game for multi-agent RL.
+MDP :RL :: stochastic game : multi-agent RL.
 
 There are multiple Nash Equilibriums in terms of the policy pair.
+
+![](2020-04-25-13-08-58.png)
 
 ### Stochastic Games (Shapley)
 
 * $S$, States
 * $A_i$, Action for player $i$: $a,b \quad a\in A_1, b\in A_2$.
 * $T$, transition: $T(s,(a,b),s')$.
+  * joint action; taken simultaneously
 * $R_i$, reward for player $i$: $R_1(s, (a,b))\; R_2(s, (a,b))$
 * $\gamma$: discount factor.
+  * same for everyone
+  * Again some people say discount is part of problem definition and some say part of parameters
 
 **Models**:
 
 1. $R_1=-R_2$: zero-sum stochastic game
 2. $T(s,(a,b),s') = T(s,(a,b'),s') \text{ and } R_1(s, (a,b)) = R_1(s, (a,b'))\;\forall b' \text{ and } R_2 = 0$: MDP.
+   1. Makes one of the players irrelevant to simplfy problem
+   2. Can remove R2 or set to R1
 3. $|S|=1$: repeated game.
+   1. Most comfortable about
 
 ### Zero-sum Stochastic Games
 
 Updated Bellman equation:
 
 $$Q_i^*(s,(a,b)) = R(s,(a,b)) + \gamma \sum_{s'}T(s,(a,b),s')\;\underset{a',b'}{minimax}Q_i^*(s',(a',b'))$$
+
+
+Assume joint actions benefit me!  optimistic delusion
+
+instead solve zero sum game in Q values!  General sum if more than 2 players
 
 Q-learning update rule (minimax-Q):
 
@@ -187,12 +222,14 @@ $$\underset{a',b'}{minimax}Q_i^*(s',(a',b')) = \underset{a'}{max}\;\underset{b'}
 * minimax-Q converges
 * unique solution to $Q^*$.
 * Policies can be computed independently.
-* update dfficient
+* update efficient
+  * Minimax operator can be solved with linear programming
 * Q function sufficient to specify the policies.
+* Not known if can be SOLVED in polynomial time (compared to MDP which can)
 
 ### General-sum Stochastic Games
 
-Updated Bellman equation:
+Updated Bellman equation(can't do minimax):
 
 $$Q_i^*(s,(a,b)) = R(s,(a,b)) + \gamma \sum_{s'}T(s,(a,b),s')\;\underset{a',b'}{Nash}Q_i^*(s',(a',b'))$$
 
