@@ -8,10 +8,16 @@ It's the mathematics of conflict of interest when trying to make optimal choices
 
 * Mathematics of conflict.
 * Single agents -> multiple agents.
-* Economics ($\neq$ policies).
+* Economics (and politics).
+  * Biology
+  * sociology
+  * genes/cells? (intention may be missing, built into GT so may break down)
+  * How do you incorporate conflicting intentions
 * Increasingly a part of AI/ML.
 
 ## A Simple Game (Theory)
+
+![](2020-04-24-23-08-00.png)
 
 2-player zero-sum deterministic game of perfect information.
 
@@ -19,11 +25,13 @@ It's the mathematics of conflict of interest when trying to make optimal choices
 
 **Strategies**: A mapping of all possible states to actions. One strategy for each player.
 
-**Pure Strategy**: The optimal action to take in every state in a game with perfect information.
+**Pure Strategy**: The optimal action to take in every state in a game with perfect information.  (MDP not POMDP)
 
 ## Minimax
 
 **Strategy matrix**
+
+Matrix form of the game; how you got here does not matter.  once you have it in this type of game it's only thing that matters
 
 ![](images/a_simple_game.png)
 
@@ -31,15 +39,15 @@ It's the mathematics of conflict of interest when trying to make optimal choices
 
 *And B must consider the worst-case counter strategy by A.* B is trying to minimize the maximum value A can get, where the maximum value comes form the strategy that A selects after B. (**Minimax**)
 
-In the above case, the strategy for A will end at the second row and that for B will end at the second column. The value of the game becomes 3.
+In the above case, the strategy for A will end at the second row and that for B will end at the second column. The value of the game becomes 3.  (If A and B try to do the rational thing)
 
 ### Fundamental Result
 
-In a 2-player zero-sum deterministic game of perfect information. Minimax = Maxmini, and there always exists an **optimal pure strategy** for each player.
+In a 2-player zero-sum deterministic game of perfect information. Minimax = Maxmini, and there always exists an **optimal pure strategy** for each player.  (Pure strategy because it is deterministic and perfect info)
 
 * Assumption: agents are rational. They are always trying to maximize their rewards and assuming everyone else is doing the same thing and assuming that everyone else is assuming the the same thing.
 
-## Game Tree
+## Game Tree (relaxes deterministic req)
 
 2-player zero-sum **non-deterministic** game of perfect information.
 
@@ -47,11 +55,15 @@ In a 2-player zero-sum deterministic game of perfect information. Minimax = Maxm
 
 The expectations are calculated constructing the matrix. And the strategy doesn't care about the stochasticity of original game tree. One the matrix is fixed, the strategies are done.
 
+You don't need the game tree, but you also can't reconstruct the tree from the matrix.
+
 ### Von Neumann's minimax theorem
 
 The theorem that there always exists an optimal pure strategy for each player still holds here. (https://en.wikipedia.org/wiki/Minimax_theorem)
 
-## Minipoker
+Note this includes deterministic and non-deterministic.
+
+## Minipoker (relaxes perfect info)
 
 2-player zero-sum (non-)deterministic game of **hidden** information.
 
@@ -85,6 +97,7 @@ The $P$ is the probability of A choosing to be a holder. Then there are two line
 * The two lines can both have negative or positive slope, but the we can still find the maxmini. (far left, far right or the interection)
 * This situation also holds for more than 2 players.
 
+
 ## Snitch
 
 2-player **non-zero-sum** (non-)deterministic game of hidden information.
@@ -103,7 +116,7 @@ And thus they miss the situation where the total loss is minimum but heading tow
 ## A Beautiful Equilibrium
 
 Given $n$ players with their strategy sets $S_1, S_2, ... ,S_n$. A set of strategy $S^*_1\in S_1, S^*_2\in S_2, ... ,S^*_n\in S_n$ is a **nash equilibrium** (N.E.) iff:
-$$\forall i \quad S^*_i=\underset{S_i}{argmax}\; \text{untility}_i (S^*_1, S^*_2, ..., S_i, ... ,S^*_n)$$
+$$\forall i \quad S^*_i=\underset{S_i}{argmax}\; \text{utility}_i (S^*_1, S^*_2, ..., S_i, ... ,S^*_n)$$
 
 In other words, for every player, the current strategy is the best one if all other players don't change their strategy.
 
@@ -128,6 +141,8 @@ We always assume that every player chooses the best strategy for himself.
 
 If A and B can build trust along the games, at the time of final game, it is a perfect timing for them to betray. (Since both of them thought the trust has been built.)
 
+You can back propagate if there is a known end, because no future consequences in the final game, will mean all will be the nash eq.
+
 #### Theorem
 
 When there are n repeated games, there will be n repeated N.E.
@@ -141,6 +156,7 @@ When there are n repeated games, there will be n repeated N.E.
 * We can Change the Game to get out the Dilemma.
   + Mechism Design: inverse game Theory, where the goal is to set the rewards in the game to let players choose the desired actions.
 * We are in matrix.
+  * Matrix is all we need
 * Type of the game:
   + deterministic, non-deterministic
   + perfect, hidden information
@@ -150,4 +166,6 @@ When there are n repeated games, there will be n repeated N.E.
 * Minimax
 * Prisoner's Dilemma
 * **Andrew Moore**
+  * https://www.cs.cmu.edu/~./awm/tutorials/gametheory02.pdf
+  * https://www.cs.cmu.edu/~./awm/tutorials/nonzerosum06.pdf
 * Nash
